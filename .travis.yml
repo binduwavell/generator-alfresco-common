@@ -1,0 +1,27 @@
+language: java
+
+jdk:
+  - oraclejdk8
+
+env:
+  - NODE_VERSION=v0.10
+  - NODE_VERSION=v0.12
+  - NODE_VERSION=v4
+  - NODE_VERSION=v5
+  - NODE_VERSION=v6
+
+install:
+  - nvm install $NODE_VERSION
+  - npm install
+
+script:
+  - nvm use $NODE_VERSION
+  - node ci.js $NODE_VERSION
+
+notifications:
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/caa35ceb4dd217d50b26
+    on_success: change  # options: [always|never|change] default: always
+    on_failure: always  # options: [always|never|change] default: always
+    on_start: never     # options: [always|never|change] default: always

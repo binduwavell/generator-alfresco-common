@@ -1,0 +1,8 @@
+.DS_Store
+.idea
+generator-alfresco.iml
+npm-debug.log
+*~
+coverage/
+node_modules/
+yarn.lock

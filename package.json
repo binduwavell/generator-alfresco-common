@@ -1,0 +1,80 @@
+{
+  "name": "generator-alfresco-common",
+  "version": "0.9.1",
+  "description": "Common code for Alfresco yeoman generator",
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "repository": "binduwavell/generator-alfresco-common",
+  "author": {
+    "name": "Bindu Wavell",
+    "email": "bindu@ziaconsulting.com",
+    "url": "https://github.com/binduwavell"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "files": [
+    "index.js",
+    "lib"
+  ],
+  "keywords": [
+    "alfresco",
+    "all-in-one",
+    "generator",
+    "yeoman",
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "chalk": "1.1.3",
+    "cross-spawn": "4.0.2",
+    "deasync": "0.1.8",
+    "debug": "2.2.0",
+    "lodash": "4.16.4",
+    "pretty-data": "0.40.0",
+    "split": "1.0.0",
+    "window-size": "0.2.0",
+    "wrap-ansi": "2.0.0",
+    "xmldom": "0.1.22",
+    "xpath": "0.0.23"
+  },
+  "devDependencies": {
+    "codecov": "1.0.1",
+    "coveralls": "2.11.14",
+    "eslint": "3.7.1",
+    "eslint-config-standard": "6.2.0",
+    "eslint-plugin-promise": "3.0.0",
+    "eslint-plugin-standard": "2.0.1",
+    "fixme": "0.4.0",
+    "ghooks": "1.3.2",
+    "istanbul": "0.4.5",
+    "mem-fs": "1.1.3",
+    "mem-fs-editor": "2.3.0",
+    "mocha": "3.1.2",
+    "mocha-eslint": "3.0.1",
+    "mocha-lcov-reporter": "1.2.0",
+    "npm-check-updates": "2.8.5",
+    "shelljs": "0.5.3"
+  },
+  "config": {
+    "ghooks": {
+      "pre-commit": "eslint index.js lib test"
+    }
+  },
+  "scripts": {
+    "eslint": "eslint index.js lib test || echo DONE",
+    "fixme": "node -e \"require('fixme')()\"",
+    "ncu": "ncu",
+    "ncu:upgrade": "ncu -u -x shelljs",
+    "test": "mocha --reporter spec test",
+    "test:color": "mocha --colors --reporter spec test",
+    "test:one": "mocha --reporter spec",
+    "test:watch": "mocha --reporter spec --watch test",
+    "test:watchone": "mocha --reporter spec --watch",
+    "howto-cover-local": "echo 'Place a repo_token: entry with the project secret from the coveralls dashboard into .coveralls.yml' ; echo 'WARNING: do not commit this secret!!!'",
+    "cover": "istanbul cover _mocha -- --report spec test ; node -e \"require('fixme')()\"",
+    "coveralls": "istanbul cover _mocha -- --report spec test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "coveralls:color": "istanbul cover _mocha -- --colors --report spec test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "codecov": "istanbul cover _mocha -- --report spec test && codecov && rm -rf ./coverage",
+    "codecov:color": "istanbul cover _mocha -- --colors --report spec test && codecov && rm -rf ./coverage"
+  }
+}

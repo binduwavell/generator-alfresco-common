@@ -1,0 +1,15 @@
+{
+  "ignore": [
+    "ci.js",
+    "**/incomplete-action/**",
+    "**/node_modules/**"
+  ],
+  "test": [
+    "test/**"
+  ],
+  "dependencies": {
+    "mute": [
+      "shelljs"
+    ]
+  }
+}
