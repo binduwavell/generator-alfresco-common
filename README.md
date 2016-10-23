@@ -271,18 +271,18 @@ If you find a bug or something is confusing, you can review [existing](https://g
 
 Apache 2.0
 
-[travis-image]: https://img.shields.io/travis/binduwavell/generator-alfresco/master.svg
-[travis-url]: https://travis-ci.org/binduwavell/generator-alfresco
-[bithound-dep-image]: https://www.bithound.io/github/binduwavell/generator-alfresco/badges/dependencies.svg
-[bithound-dep-url]: https://www.bithound.io/github/binduwavell/generator-alfresco/master/dependencies/npm
-[bithound-dev-image]: https://www.bithound.io/github/binduwavell/generator-alfresco/badges/devDependencies.svg
-[bithound-dev-url]: https://www.bithound.io/github/binduwavell/generator-alfresco/master/dependencies/npm
-[daviddm-image]: https://david-dm.org/binduwavell/generator-alfresco.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/binduwavell/generator-alfresco
-[codecov-image]: https://codecov.io/github/binduwavell/generator-alfresco/coverage.svg?branch=master
-[codecov-url]: https://codecov.io/github/binduwavell/generator-alfresco?branch=master
-[coveralls-image]: https://coveralls.io/repos/binduwavell/generator-alfresco/badge.svg?branch=master&service=github
-[coveralls-url]: https://coveralls.io/github/binduwavell/generator-alfresco?branch=master
+[travis-image]: https://img.shields.io/travis/binduwavell/generator-alfresco-common/master.svg
+[travis-url]: https://travis-ci.org/binduwavell/generator-alfresco-common
+[bithound-dep-image]: https://www.bithound.io/github/binduwavell/generator-alfresco-common/badges/dependencies.svg
+[bithound-dep-url]: https://www.bithound.io/github/binduwavell/generator-alfresco-common/master/dependencies/npm
+[bithound-dev-image]: https://www.bithound.io/github/binduwavell/generator-alfresco-common/badges/devDependencies.svg
+[bithound-dev-url]: https://www.bithound.io/github/binduwavell/generator-alfresco-common/master/dependencies/npm
+[daviddm-image]: https://david-dm.org/binduwavell/generator-alfresco-common.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/binduwavell/generator-alfresco-common
+[codecov-image]: https://codecov.io/github/binduwavell/generator-alfresco-common/coverage.svg?branch=master
+[codecov-url]: https://codecov.io/github/binduwavell/generator-alfresco-common?branch=master
+[coveralls-image]: https://coveralls.io/repos/binduwavell/generator-alfresco-common/badge.svg?branch=master&service=github
+[coveralls-url]: https://coveralls.io/github/binduwavell/generator-alfresco-common?branch=master
 [gitter-image]: https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg
 [gitter-url]: https://gitter.im/binduwavell/generator-alfresco?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
 [codenvy-image]: http://beta.codenvy.com/factory/resources/codenvy-contribute.svg
