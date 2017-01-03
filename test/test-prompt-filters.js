@@ -3,7 +3,7 @@
 var assert = require('assert');
 var filters = require('../index').prompt_filters;
 
-describe('generator-alfresco:prompt-filters', function () {
+describe('generator-alfresco-common:prompt-filters', function () {
   describe('.booleanFilter()', function () {
     it('handles invalid input', function () {
       assert.equal(filters.booleanFilter(undefined), undefined);

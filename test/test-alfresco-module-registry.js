@@ -2,7 +2,7 @@
 /* eslint-env node, mocha */
 var assert = require('assert');
 
-describe('generator-alfresco:alfresco-module-registry', function () {
+describe('generator-alfresco-common:alfresco-module-registry', function () {
   var yomock = {
     'config': {
       'get': function (key) { return undefined },

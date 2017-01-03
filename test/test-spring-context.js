@@ -2,7 +2,7 @@
 /* eslint-env node, mocha */
 var assert = require('assert');
 
-describe('generator-alfresco:spring-context', function () {
+describe('generator-alfresco-common:spring-context', function () {
   describe('.hasImport()', function () {
     it('can determine if an import does not exist when there are no imports', function () {
       var contextString = [

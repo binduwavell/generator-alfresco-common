@@ -3,7 +3,7 @@
 var assert = require('assert');
 var dependencyVersions = require('../index').dependency_versions;
 
-describe('generator-alfresco:dependency-versions', function () {
+describe('generator-alfresco-common:dependency-versions', function () {
   describe('.getJavaVersion()', function () {
     this.timeout(10000);
 
