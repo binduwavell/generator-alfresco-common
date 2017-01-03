@@ -1,6 +1,6 @@
 {
   "name": "generator-alfresco-common",
-  "version": "0.9.7",
+  "version": "0.9.8",
   "description": "Common code for Alfresco yeoman generator",
   "license": "Apache-2.0",
   "main": "index.js",
