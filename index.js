@@ -5,6 +5,7 @@ var common = module.exports;
 common.alfresco_module_registry = require('./lib/alfresco-module-registry');
 common.constants = require('./lib/constants');
 common.dependency_versions = require('./lib/dependency-versions');
+common.general_utils = require('./lib/general-utils');
 common.generator_output = require('./lib/generator-output');
 common.java_properties = require('./lib/java-properties');
 common.maven_pom = require('./lib/maven-pom');
