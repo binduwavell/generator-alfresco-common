@@ -83,7 +83,7 @@ describe('generator-alfresco:maven-pom', function () {
       pom.setParentGAV('com.ziaconsulting', 'test', '1.2.3');
       var parent = pom.getOrCreateTopLevelElement('pom', 'parent');
       assert.ok(parent);
-      assert.equal(parent.toString(), '<parent><groupId>com.ziaconsulting</groupId><artifactId>test</artifactId><version>1.2.3</version></parent>');
+      assert.equal(parent.toString(), '<parent xmlns="http://maven.apache.org/POM/4.0.0"><groupId>com.ziaconsulting</groupId><artifactId>test</artifactId><version>1.2.3</version></parent>');
     });
   });
 
@@ -112,7 +112,7 @@ describe('generator-alfresco:maven-pom', function () {
       var pom = require('../index').maven_pom(pomString);
       var dependency = pom.findDependency('com.ziaconsulting', 'test');
       assert.ok(dependency);
-      assert.equal(dependency.toString(), '<dependency>\n      <groupId>com.ziaconsulting</groupId>\n      <artifactId>test</artifactId>\n      <version>1.0.0</version>\n      <scope>compile</scope>\n    </dependency>');
+      assert.equal(dependency.toString(), '<dependency xmlns="http://maven.apache.org/POM/4.0.0">\n      <groupId>com.ziaconsulting</groupId>\n      <artifactId>test</artifactId>\n      <version>1.0.0</version>\n      <scope>compile</scope>\n    </dependency>');
     });
 
     it('find first dependency by groupId and artifactId', function () {
@@ -139,7 +139,7 @@ describe('generator-alfresco:maven-pom', function () {
       var pom = require('../index').maven_pom(pomString);
       var dependency = pom.findDependency('com.ziaconsulting', 'test');
       assert.ok(dependency);
-      assert.equal(dependency.toString(), '<dependency>\n      <groupId>com.ziaconsulting</groupId>\n      <artifactId>test</artifactId>\n      <version>1.0.0</version>\n      <scope>compile</scope>\n    </dependency>');
+      assert.equal(dependency.toString(), '<dependency xmlns="http://maven.apache.org/POM/4.0.0">\n      <groupId>com.ziaconsulting</groupId>\n      <artifactId>test</artifactId>\n      <version>1.0.0</version>\n      <scope>compile</scope>\n    </dependency>');
     });
 
     it('find last dependency by groupId and artifactId', function () {
@@ -166,7 +166,7 @@ describe('generator-alfresco:maven-pom', function () {
       var pom = require('../index').maven_pom(pomString);
       var dependency = pom.findDependency('com.ziaconsulting', 'test');
       assert.ok(dependency);
-      assert.equal(dependency.toString(), '<dependency>\n      <groupId>com.ziaconsulting</groupId>\n      <artifactId>test</artifactId>\n      <version>1.0.0</version>\n      <scope>compile</scope>\n    </dependency>');
+      assert.equal(dependency.toString(), '<dependency xmlns="http://maven.apache.org/POM/4.0.0">\n      <groupId>com.ziaconsulting</groupId>\n      <artifactId>test</artifactId>\n      <version>1.0.0</version>\n      <scope>compile</scope>\n    </dependency>');
     });
 
     it('find middle dependency by groupId and artifactId', function () {
@@ -199,7 +199,7 @@ describe('generator-alfresco:maven-pom', function () {
       var pom = require('../index').maven_pom(pomString);
       var dependency = pom.findDependency('com.ziaconsulting', 'test');
       assert.ok(dependency);
-      assert.equal(dependency.toString(), '<dependency>\n      <groupId>com.ziaconsulting</groupId>\n      <artifactId>test</artifactId>\n      <version>1.0.0</version>\n      <scope>compile</scope>\n    </dependency>');
+      assert.equal(dependency.toString(), '<dependency xmlns="http://maven.apache.org/POM/4.0.0">\n      <groupId>com.ziaconsulting</groupId>\n      <artifactId>test</artifactId>\n      <version>1.0.0</version>\n      <scope>compile</scope>\n    </dependency>');
     });
 
     it('find dependency by groupId, artifactId & version', function () {
@@ -220,7 +220,7 @@ describe('generator-alfresco:maven-pom', function () {
       var pom = require('../index').maven_pom(pomString);
       var dependency = pom.findDependency('com.ziaconsulting', 'test', '1.0.0');
       assert.ok(dependency);
-      assert.equal(dependency.toString(), '<dependency>\n      <groupId>com.ziaconsulting</groupId>\n      <artifactId>test</artifactId>\n      <version>1.0.0</version>\n      <scope>compile</scope>\n    </dependency>');
+      assert.equal(dependency.toString(), '<dependency xmlns="http://maven.apache.org/POM/4.0.0">\n      <groupId>com.ziaconsulting</groupId>\n      <artifactId>test</artifactId>\n      <version>1.0.0</version>\n      <scope>compile</scope>\n    </dependency>');
     });
 
     it('doesn\'t find dependency by groupId, artifactId & invalid version', function () {
@@ -262,7 +262,7 @@ describe('generator-alfresco:maven-pom', function () {
       var pom = require('../index').maven_pom(pomString);
       var dependency = pom.findDependency('com.ziaconsulting', 'test', undefined, 'amp', undefined);
       assert.ok(dependency);
-      assert.equal(dependency.toString(), '<dependency>\n      <groupId>com.ziaconsulting</groupId>\n      <artifactId>test</artifactId>\n      <version>1.0.0</version>\n      <type>amp</type>\n      <scope>compile</scope>\n    </dependency>');
+      assert.equal(dependency.toString(), '<dependency xmlns="http://maven.apache.org/POM/4.0.0">\n      <groupId>com.ziaconsulting</groupId>\n      <artifactId>test</artifactId>\n      <version>1.0.0</version>\n      <type>amp</type>\n      <scope>compile</scope>\n    </dependency>');
     });
 
     it('find dependency by groupId, artifactId & scope', function () {
@@ -284,7 +284,7 @@ describe('generator-alfresco:maven-pom', function () {
       var pom = require('../index').maven_pom(pomString);
       var dependency = pom.findDependency('com.ziaconsulting', 'test', undefined, undefined, 'compile');
       assert.ok(dependency);
-      assert.equal(dependency.toString(), '<dependency>\n      <groupId>com.ziaconsulting</groupId>\n      <artifactId>test</artifactId>\n      <version>1.0.0</version>\n      <type>amp</type>\n      <scope>compile</scope>\n    </dependency>');
+      assert.equal(dependency.toString(), '<dependency xmlns="http://maven.apache.org/POM/4.0.0">\n      <groupId>com.ziaconsulting</groupId>\n      <artifactId>test</artifactId>\n      <version>1.0.0</version>\n      <type>amp</type>\n      <scope>compile</scope>\n    </dependency>');
     });
 
     it('find dependency by groupId, artifactId, type & scope', function () {
@@ -306,7 +306,7 @@ describe('generator-alfresco:maven-pom', function () {
       var pom = require('../index').maven_pom(pomString);
       var dependency = pom.findDependency('com.ziaconsulting', 'test', undefined, 'amp', 'compile');
       assert.ok(dependency);
-      assert.equal(dependency.toString(), '<dependency>\n      <groupId>com.ziaconsulting</groupId>\n      <artifactId>test</artifactId>\n      <version>1.0.0</version>\n      <type>amp</type>\n      <scope>compile</scope>\n    </dependency>');
+      assert.equal(dependency.toString(), '<dependency xmlns="http://maven.apache.org/POM/4.0.0">\n      <groupId>com.ziaconsulting</groupId>\n      <artifactId>test</artifactId>\n      <version>1.0.0</version>\n      <type>amp</type>\n      <scope>compile</scope>\n    </dependency>');
     });
 
     it('find dependency by groupId, artifactId, version, type & scope', function () {
@@ -328,7 +328,7 @@ describe('generator-alfresco:maven-pom', function () {
       var pom = require('../index').maven_pom(pomString);
       var dependency = pom.findDependency('com.ziaconsulting', 'test', '1.0.0', 'amp', 'compile');
       assert.ok(dependency);
-      assert.equal(dependency.toString(), '<dependency>\n      <groupId>com.ziaconsulting</groupId>\n      <artifactId>test</artifactId>\n      <version>1.0.0</version>\n      <type>amp</type>\n      <scope>compile</scope>\n    </dependency>');
+      assert.equal(dependency.toString(), '<dependency xmlns="http://maven.apache.org/POM/4.0.0">\n      <groupId>com.ziaconsulting</groupId>\n      <artifactId>test</artifactId>\n      <version>1.0.0</version>\n      <type>amp</type>\n      <scope>compile</scope>\n    </dependency>');
     });
 
     it('doesn\'t find dependency by groupId, artifactId, version, type & scope with invalid version', function () {
@@ -423,7 +423,7 @@ describe('generator-alfresco:maven-pom', function () {
       var dependencies = pom.getOrCreateTopLevelElement('pom', 'dependencies');
       assert.ok(dependency);
       assert.ok(dependencies);
-      assert.equal(dependencies.toString(), '<dependencies><dependency><groupId>com.ziaconsulting</groupId><artifactId>test</artifactId><version>1.0.0</version><scope>compile</scope></dependency></dependencies>');
+      assert.equal(dependencies.toString(), '<dependencies xmlns="http://maven.apache.org/POM/4.0.0"><dependency><groupId>com.ziaconsulting</groupId><artifactId>test</artifactId><version>1.0.0</version><scope>compile</scope></dependency></dependencies>');
     });
 
     it('don\'t replace existing dependency', function () {
@@ -446,8 +446,8 @@ describe('generator-alfresco:maven-pom', function () {
       var dependencies = pom.getOrCreateTopLevelElement('pom', 'dependencies');
       assert.ok(dependency);
       assert.ok(dependencies);
-      assert.equal(dependency.toString(), '<dependency>\n      <groupId>com.ziaconsulting</groupId>\n      <artifactId>test</artifactId>\n      <version>1.0.0</version>\n      <scope>compile</scope>\n    </dependency>');
-      assert.equal(dependencies.toString(), '<dependencies>\n    <dependency>\n      <groupId>com.ziaconsulting</groupId>\n      <artifactId>test</artifactId>\n      <version>1.0.0</version>\n      <scope>compile</scope>\n    </dependency>\n  </dependencies>');
+      assert.equal(dependency.toString(), '<dependency xmlns="http://maven.apache.org/POM/4.0.0">\n      <groupId>com.ziaconsulting</groupId>\n      <artifactId>test</artifactId>\n      <version>1.0.0</version>\n      <scope>compile</scope>\n    </dependency>');
+      assert.equal(dependencies.toString(), '<dependencies xmlns="http://maven.apache.org/POM/4.0.0">\n    <dependency>\n      <groupId>com.ziaconsulting</groupId>\n      <artifactId>test</artifactId>\n      <version>1.0.0</version>\n      <scope>compile</scope>\n    </dependency>\n  </dependencies>');
     });
 
     it('add second dependency', function () {
@@ -470,7 +470,7 @@ describe('generator-alfresco:maven-pom', function () {
       var dependencies = pom.getOrCreateTopLevelElement('pom', 'dependencies');
       assert.ok(dependency);
       assert.ok(dependencies);
-      assert.equal(dependencies.toString(), '<dependencies>\n    <dependency>\n      <groupId>com.ziaconsulting</groupId>\n      <artifactId>test</artifactId>\n      <version>1.0.0</version>\n      <scope>compile</scope>\n    </dependency>\n  <dependency><groupId>net.ziaconsulting</groupId><artifactId>test</artifactId><version>1.0.0</version><scope>compile</scope></dependency></dependencies>');
+      assert.equal(dependencies.toString(), '<dependencies xmlns="http://maven.apache.org/POM/4.0.0">\n    <dependency>\n      <groupId>com.ziaconsulting</groupId>\n      <artifactId>test</artifactId>\n      <version>1.0.0</version>\n      <scope>compile</scope>\n    </dependency>\n  <dependency><groupId>net.ziaconsulting</groupId><artifactId>test</artifactId><version>1.0.0</version><scope>compile</scope></dependency></dependencies>');
     });
 
     it('removes type, version and scope from existing dependency', function () {
@@ -492,7 +492,7 @@ describe('generator-alfresco:maven-pom', function () {
       var pom = require('../index').maven_pom(pomString);
       var dependency = pom.addDependency('com.ziaconsulting', 'test');
       assert.ok(dependency);
-      assert.equal(dependency.toString(), '<dependency>\n      <groupId>com.ziaconsulting</groupId>\n      <artifactId>test</artifactId>\n      \n      \n      \n    </dependency>');
+      assert.equal(dependency.toString(), '<dependency xmlns="http://maven.apache.org/POM/4.0.0">\n      <groupId>com.ziaconsulting</groupId>\n      <artifactId>test</artifactId>\n      \n      \n      \n    </dependency>');
     });
   });
 
@@ -508,7 +508,7 @@ describe('generator-alfresco:maven-pom', function () {
       pom.removeDependency('com.ziaconsulting', 'test', '1.0.0', 'compile');
       var dependencies = pom.getOrCreateTopLevelElement('pom', 'dependencies');
       assert.ok(dependencies);
-      assert.equal(dependencies.toString(), '<dependencies/>');
+      assert.equal(dependencies.toString(), '<dependencies xmlns="http://maven.apache.org/POM/4.0.0"/>');
     });
 
     it('remove only dependency', function () {
@@ -530,7 +530,7 @@ describe('generator-alfresco:maven-pom', function () {
       pom.removeDependency('com.ziaconsulting', 'test', '1.0.0', undefined, 'compile');
       var dependencies = pom.getOrCreateTopLevelElement('pom', 'dependencies');
       assert.ok(dependencies);
-      assert.equal(dependencies.toString(), '<dependencies>\n    \n  </dependencies>');
+      assert.equal(dependencies.toString(), '<dependencies xmlns="http://maven.apache.org/POM/4.0.0">\n    \n  </dependencies>');
     });
   });
 
@@ -554,7 +554,7 @@ describe('generator-alfresco:maven-pom', function () {
       var pom = require('../index').maven_pom(pomString);
       var moduleNode = pom.findModule('asdf');
       assert.ok(moduleNode);
-      assert.equal(moduleNode.toString(), '<module>asdf</module>');
+      assert.equal(moduleNode.toString(), '<module xmlns="http://maven.apache.org/POM/4.0.0">asdf</module>');
     });
 
     it('find first module', function () {
@@ -571,7 +571,7 @@ describe('generator-alfresco:maven-pom', function () {
       var pom = require('../index').maven_pom(pomString);
       var moduleNode = pom.findModule('asdf');
       assert.ok(moduleNode);
-      assert.equal(moduleNode.toString(), '<module>asdf</module>');
+      assert.equal(moduleNode.toString(), '<module xmlns="http://maven.apache.org/POM/4.0.0">asdf</module>');
     });
 
     it('find last module', function () {
@@ -588,7 +588,7 @@ describe('generator-alfresco:maven-pom', function () {
       var pom = require('../index').maven_pom(pomString);
       var moduleNode = pom.findModule('asdf');
       assert.ok(moduleNode);
-      assert.equal(moduleNode.toString(), '<module>asdf</module>');
+      assert.equal(moduleNode.toString(), '<module xmlns="http://maven.apache.org/POM/4.0.0">asdf</module>');
     });
 
     it('find middle module', function () {
@@ -606,7 +606,7 @@ describe('generator-alfresco:maven-pom', function () {
       var pom = require('../index').maven_pom(pomString);
       var moduleNode = pom.findModule('asdf');
       assert.ok(moduleNode);
-      assert.equal(moduleNode.toString(), '<module>asdf</module>');
+      assert.equal(moduleNode.toString(), '<module xmlns="http://maven.apache.org/POM/4.0.0">asdf</module>');
     });
   });
 
@@ -617,7 +617,7 @@ describe('generator-alfresco:maven-pom', function () {
       var moduleNodes = pom.getOrCreateTopLevelElement('pom', 'modules');
       assert.ok(moduleNode);
       assert.ok(moduleNodes);
-      assert.equal(moduleNodes.toString(), '<modules><module>asdf</module></modules>');
+      assert.equal(moduleNodes.toString(), '<modules xmlns="http://maven.apache.org/POM/4.0.0"><module>asdf</module></modules>');
     });
 
     it('don\'t replace existing module', function () {
@@ -635,8 +635,8 @@ describe('generator-alfresco:maven-pom', function () {
       var moduleNodes = pom.getOrCreateTopLevelElement('pom', 'modules');
       assert.ok(moduleNode);
       assert.ok(moduleNodes);
-      assert.equal(moduleNode.toString(), '<module>asdf</module>');
-      assert.equal(moduleNodes.toString(), '<modules>\n    <module>asdf</module>\n  </modules>');
+      assert.equal(moduleNode.toString(), '<module xmlns="http://maven.apache.org/POM/4.0.0">asdf</module>');
+      assert.equal(moduleNodes.toString(), '<modules xmlns="http://maven.apache.org/POM/4.0.0">\n    <module>asdf</module>\n  </modules>');
     });
 
     it('adds second module', function () {
@@ -654,9 +654,9 @@ describe('generator-alfresco:maven-pom', function () {
       var moduleNodes = pom.getOrCreateTopLevelElement('pom', 'modules');
       assert.ok(moduleNode);
       assert.ok(moduleNodes);
-      assert.equal(moduleNode.toString(), '<module>asdf</module>');
+      assert.equal(moduleNode.toString(), '<module xmlns="http://maven.apache.org/POM/4.0.0">asdf</module>');
       assert.equal(moduleNodes.toString(), [
-        '<modules>',
+        '<modules xmlns="http://maven.apache.org/POM/4.0.0">',
         '    <module>fdsa</module>',
         '  <module>asdf</module></modules>',
       ].join('\n'));
@@ -677,9 +677,9 @@ describe('generator-alfresco:maven-pom', function () {
       var moduleNodes = pom.getOrCreateTopLevelElement('pom', 'modules');
       assert.ok(moduleNode);
       assert.ok(moduleNodes);
-      assert.equal(moduleNode.toString(), '<module>asdf</module>');
+      assert.equal(moduleNode.toString(), '<module xmlns="http://maven.apache.org/POM/4.0.0">asdf</module>');
       assert.equal(moduleNodes.toString(), [
-        '<modules><module>asdf</module>',
+        '<modules xmlns="http://maven.apache.org/POM/4.0.0"><module>asdf</module>',
         '    <module>fdsa</module>',
         '  </modules>',
       ].join('\n'));
@@ -698,7 +698,7 @@ describe('generator-alfresco:maven-pom', function () {
       pom.removeModule('asdf');
       var moduleNodes = pom.getOrCreateTopLevelElement('pom', 'modules');
       assert.ok(moduleNodes);
-      assert.equal(moduleNodes.toString(), '<modules/>');
+      assert.equal(moduleNodes.toString(), '<modules xmlns="http://maven.apache.org/POM/4.0.0"/>');
     });
 
     it('remove only module', function () {
@@ -715,7 +715,7 @@ describe('generator-alfresco:maven-pom', function () {
       pom.removeModule('asdf');
       var moduleNodes = pom.getOrCreateTopLevelElement('pom', 'modules');
       assert.ok(moduleNodes);
-      assert.equal(moduleNodes.toString(), '<modules>\n    \n  </modules>');
+      assert.equal(moduleNodes.toString(), '<modules xmlns="http://maven.apache.org/POM/4.0.0">\n    \n  </modules>');
     });
   });
 
@@ -741,7 +741,7 @@ describe('generator-alfresco:maven-pom', function () {
       assert.ok(plugin);
       assert.equal(plugin.toString(),
         [
-          '<plugin>',
+          '<plugin xmlns="http://maven.apache.org/POM/4.0.0">',
           '        <groupId>com.ziaconsulting</groupId>',
           '        <artifactId>test</artifactId>',
           '      </plugin>',
@@ -754,7 +754,7 @@ describe('generator-alfresco:maven-pom', function () {
       assert.ok(plugin);
       assert.equal(plugin.toString(),
         [
-          '<plugin>',
+          '<plugin xmlns="http://maven.apache.org/POM/4.0.0">',
           '        <groupId>com.ziaconsulting</groupId>',
           '        <artifactId>test</artifactId>',
           '      </plugin>',
@@ -792,7 +792,7 @@ describe('generator-alfresco:maven-pom', function () {
       assert.ok(overlay);
       assert.equal(overlay.toString(),
         [
-          '<overlay>',
+          '<overlay xmlns="http://maven.apache.org/POM/4.0.0">',
           '              <groupId>${project.groupId}</groupId>',
           '              <artifactId>repo-amp</artifactId>',
           '              <type>amp</type>',
@@ -806,7 +806,7 @@ describe('generator-alfresco:maven-pom', function () {
       assert.ok(overlay);
       assert.equal(overlay.toString(),
         [
-          '<overlay>',
+          '<overlay xmlns="http://maven.apache.org/POM/4.0.0">',
           '              <groupId>${project.groupId}</groupId>',
           '              <artifactId>repo-amp</artifactId>',
           '              <type>amp</type>',
@@ -847,7 +847,7 @@ describe('generator-alfresco:maven-pom', function () {
       overlay = pom.findOverlay('com.ziaconsulting', 'test', 'amp');
       assert.ok(overlay);
       assert.equal(overlay.toString(),
-      '<overlay><groupId>com.ziaconsulting</groupId><artifactId>test</artifactId><type>amp</type></overlay>');
+      '<overlay xmlns="http://maven.apache.org/POM/4.0.0"><groupId>com.ziaconsulting</groupId><artifactId>test</artifactId><type>amp</type></overlay>');
     });
   });
 
@@ -887,7 +887,7 @@ describe('generator-alfresco:maven-pom', function () {
       var pom = require('../index').maven_pom();
       var property = pom.setProperty('fiddle', 'sticks');
       assert.ok(property);
-      assert.equal(property.toString(), '<fiddle>sticks</fiddle>');
+      assert.equal(property.toString(), '<fiddle xmlns="http://maven.apache.org/POM/4.0.0">sticks</fiddle>');
     });
 
     it('can update existing property', function () {
@@ -903,7 +903,7 @@ describe('generator-alfresco:maven-pom', function () {
       var pom = require('../index').maven_pom(pomString);
       var property = pom.setProperty('fiddle', 'sticks');
       assert.ok(property);
-      assert.equal(property.toString(), '<fiddle>sticks</fiddle>');
+      assert.equal(property.toString(), '<fiddle xmlns="http://maven.apache.org/POM/4.0.0">sticks</fiddle>');
     });
   });
 });
