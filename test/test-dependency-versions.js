@@ -5,7 +5,7 @@ var dependencyVersions = require('../index').dependency_versions;
 
 describe('generator-alfresco:dependency-versions', function () {
   describe('.getJavaVersion()', function () {
-    this.timeout(5000);
+    this.timeout(10000);
 
     it('gets a java version with JAVA_HOME', function () {
       var javaHome = process.env.JAVA_HOME;

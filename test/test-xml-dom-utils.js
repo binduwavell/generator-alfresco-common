@@ -25,8 +25,9 @@ describe('generator-alfresco:xml-dom-utils', function () {
         '<!-- Comment -->',
         '<root ',
         '  xmlns:ns="http://www.example.com/">',
-        '  <node/>',
-        '</root>',
+        '  <node ',
+        '    xmlns="http://www.example.com/"/>',
+        '  </root>',
       ].join('\n'));
     });
 
@@ -51,8 +52,9 @@ describe('generator-alfresco:xml-dom-utils', function () {
         '<root ',
         '  xmlns:ns="http://www.example.com/">',
         '  <element/>',
-        '  <node/>',
-        '</root>',
+        '  <node ',
+        '    xmlns="http://www.example.com/"/>',
+        '  </root>',
       ].join('\n'));
     });
 
@@ -76,9 +78,10 @@ describe('generator-alfresco:xml-dom-utils', function () {
         '<!-- Comment -->',
         '<root ',
         '  xmlns:ns="http://www.example.com/">',
-        '  <node/>',
-        '  <element/>',
-        '</root>',
+        '  <node ',
+        '    xmlns="http://www.example.com/"/>',
+        '    <element/>',
+        '  </root>',
       ].join('\n'));
     });
   });
@@ -211,7 +214,10 @@ describe('generator-alfresco:xml-dom-utils', function () {
       assert.ok(element);
       assert.ok(element.nodeType === element.ELEMENT_NODE);
       var elementStr = pd.xml(new xmldom.XMLSerializer().serializeToString(element));
-      assert.equal(elementStr, '<element foo="bar"/>');
+      assert.equal(elementStr, [
+        '<element foo="bar" ',
+        '  xmlns="http://www.example.com/"/>',
+      ].join('\n'));
     });
 
     it('create top level element', function () {
@@ -229,7 +235,10 @@ describe('generator-alfresco:xml-dom-utils', function () {
       assert.ok(element);
       assert.ok(element.nodeType === element.ELEMENT_NODE);
       var elementStr = pd.xml(new xmldom.XMLSerializer().serializeToString(element));
-      assert.equal(elementStr, '<element/>');
+      assert.equal(elementStr, [
+        '<element ',
+        '  xmlns="http://www.example.com/"/>',
+      ].join('\n'));
     });
   });
 
@@ -276,12 +285,18 @@ describe('generator-alfresco:xml-dom-utils', function () {
       assert.ok(sibling1);
       assert.ok(sibling1.nodeType === sibling1.ELEMENT_NODE);
       var sibling1Str = pd.xml(new xmldom.XMLSerializer().serializeToString(sibling1));
-      assert.equal(sibling1Str, '<element2/>');
+      assert.equal(sibling1Str, [
+        '<element2 ',
+        '  xmlns="http://www.example.com/"/>',
+      ].join('\n'));
       var sibling2 = domutils.getNextElementSibling(sibling1);
       assert.ok(sibling2);
       assert.ok(sibling2.nodeType === sibling2.ELEMENT_NODE);
       var sibling2Str = pd.xml(new xmldom.XMLSerializer().serializeToString(sibling2));
-      assert.equal(sibling2Str, '<element3/>');
+      assert.equal(sibling2Str, [
+        '<element3 ',
+        '  xmlns="http://www.example.com/"/>',
+      ].join('\n'));
     });
   });
 
@@ -374,7 +389,11 @@ describe('generator-alfresco:xml-dom-utils', function () {
       var xp = "/pom:project/pom:profiles/pom:profile[pom:id='functional-testing']/pom:build/pom:plugins/pom:plugin[1]";
       var element = domutils.getFirstNodeMatchingXPath(xp, doc);
       // console.log(pd.xml(new xmldom.XMLSerializer().serializeToString(element)));
-      assert.equal(pd.xml(new xmldom.XMLSerializer().serializeToString(element)), '<plugin>you found me</plugin>');
+      assert.equal(pd.xml(new xmldom.XMLSerializer().serializeToString(element)), [
+        '<plugin ',
+        '  xmlns="http://maven.apache.org/POM/4.0.0">you found me',
+        '</plugin>',
+      ].join('\n'));
     });
 
     it('finds element under an using a relative xpath', function () {
@@ -414,7 +433,11 @@ describe('generator-alfresco:xml-dom-utils', function () {
       var xp2 = 'pom:build/pom:plugins/pom:plugin[1]';
       var element2 = domutils.getFirstNodeMatchingXPath(xp2, element1);
       // console.log(pd.xml(new xmldom.XMLSerializer().serializeToString(element2)));
-      assert.equal(pd.xml(new xmldom.XMLSerializer().serializeToString(element2)), '<plugin>you found me</plugin>');
+      assert.equal(pd.xml(new xmldom.XMLSerializer().serializeToString(element2)), [
+        '<plugin ',
+        '  xmlns="http://maven.apache.org/POM/4.0.0">you found me',
+        '</plugin>',
+      ].join('\n'));
     });
   });
 });
