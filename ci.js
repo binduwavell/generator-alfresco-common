@@ -5,7 +5,7 @@ require('shelljs/global');
 var nodeVersion = String(process.argv[2]);
 var cmd;
 
-if (nodeVersion === 'v7') {
+if (nodeVersion === 'v6') {
   cmd = 'npm run codecov:color';
 } else {
   cmd = 'npm run test:color';
