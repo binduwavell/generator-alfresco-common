@@ -472,6 +472,52 @@ describe('generator-alfresco:alfresco-module-registry', function () {
       });
     });
   });
+
+  describe('windows paths', function () {
+    it('are converted to posix paths when adding', function () {
+      var repo = require('../index').alfresco_module_registry(yomock);
+      repo.addModule('groupId', 'artifactId', 'version', 'packaging', 'war', 'location', 'customizations\\path');
+      var modules = repo.getModules();
+      assert.ok(modules);
+      assert.deepEqual(modules, [{
+        'groupId': 'groupId',
+        'artifactId': 'artifactId',
+        'version': 'version',
+        'packaging': 'packaging',
+        'war': 'war',
+        'location': 'location',
+        'path': 'customizations/path',
+      }]);
+    });
+
+    it('are converted to posix paths when reading', function () {
+      var persistentyomock = {
+        'config': {
+          'get': key => { return persistentyomock.configData[key] },
+          'set': (key, value) => { persistentyomock.configData[key] = value },
+        },
+        'configData': {},
+        'projectGroupId': 'org.alfresco',
+        'projectVersion': '1.0.0-SNAPSHOT',
+      };
+
+      var repo = require('../index').alfresco_module_registry(persistentyomock);
+      repo.addModule('groupId', 'artifactId', 'version', 'packaging', 'war', 'location', 'customizations\\path');
+      repo.save();
+      repo = require('../index').alfresco_module_registry(persistentyomock);
+      var modules = repo.getModules();
+      assert.ok(modules);
+      assert.deepEqual(modules, [{
+        'groupId': 'groupId',
+        'artifactId': 'artifactId',
+        'version': 'version',
+        'packaging': 'packaging',
+        'war': 'war',
+        'location': 'location',
+        'path': 'customizations/path',
+      }]);
+    });
+  });
 });
 
 // vim: autoindent expandtab tabstop=2 shiftwidth=2 softtabstop=2
