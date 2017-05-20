@@ -1,103 +1,77 @@
 'use strict';
 /* eslint-env node, mocha */
 var assert = require('assert');
+var fs = require('fs');
+var path = require('path');
 
-var archetypeDescriptor = [
-  '<?xml version="1.0" encoding="UTF-8"?>',
-  '<archetype-descriptor xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd" name="example" partial="true">',
-  '  <requiredProperties>',
-  '    <requiredProperty key="foo">',
-  '      <defaultValue>bar</defaultValue>',
-  '    </requiredProperty>',
-  '    <requiredProperty key="baz" />',
-  '  </requiredProperties>',
-  '  <fileSets>',
-  '    <fileSet filtered="true" packaged="true" encoding="UTF-8">',
-  '      <directory>src/main/java</directory>',
-  '      <includes>',
-  '        <include>**/*.java</include>',
-  '        <include>**/*.class</include>',
-  '      </includes>',
-  '      <excludes>',
-  '        <exclude>**/*Test.java</exclude>',
-  '      </excludes>',
-  '    </fileSet>',
-  '    <fileSet filtered="false" packaged="false" encoding="UTF-8">',
-  '      <directory>src/main/test</directory>',
-  '      <includes>',
-  '        <include>**/*.properties</include>',
-  '      </includes>',
-  '    </fileSet>',
-  '  </fileSets>',
-  '  <modules>',
-  '    <module dir="one" id="one" name="name1">',
-  '      <fileSets>',
-  '        <fileSet packaged="true" filtered="false" encoding="UTF-8">',
-  '          <directory>src/main/resources</directory>',
-  '        </fileSet>',
-  '      </fileSets>',
-  '      <modules>',
-  '        <module name="sub" dir="sub" id="sub">',
-  '          <fileSets>',
-  '            <fileSet packaged="false" filtered="true" encoding="UTF-8">',
-  '              <directory>src/main/resources</directory>',
-  '            </fileSet>',
-  '          </fileSets>',
-  '        </module>',
-  '      </modules>',
-  '    </module>',
-  '    <module dir="two" id="two" name="name2">',
-  '    </module>',
-  '  </modules>',
-  '</archetype-descriptor>',
-].join('\n');
+var _archetypeMetadataPath = path.join(__dirname, 'fixtures/archetype-metadata.xml');
+var archetypeDescriptor = fs.readFileSync(_archetypeMetadataPath, 'utf8');
+
+var _badArchetypeMetadataPath = path.join(__dirname, 'fixtures/bad-archetype-metadata.xml');
+var badArchetypeDescriptor = fs.readFileSync(_badArchetypeMetadataPath, 'utf8');
+
+var _emptyArchetypeMetadataPath = path.join(__dirname, 'fixtures/empty-archetype-metadata.xml');
+var emptyArchetypeDescriptor = fs.readFileSync(_emptyArchetypeMetadataPath, 'utf8');
+
+var _mostlyEmptyArchetypeMetadataPath = path.join(__dirname, 'fixtures/mostly-empty-archetype-metadata.xml');
+var mostlyEmptyArchetypeDescriptor = fs.readFileSync(_mostlyEmptyArchetypeMetadataPath, 'utf8');
 
 describe('generator-alfresco-common:maven-archetype-metadata', function () {
   describe('.getName()', function () {
-    it('happy path', function () {
+    it('grabs the right value', function () {
       var metadata = require('../index').maven_archetype_metadata(archetypeDescriptor);
       assert.equal(metadata.getName(), 'example');
+    });
+
+    it('throws when there is no data', function () {
+      var metadata = require('../index').maven_archetype_metadata(badArchetypeDescriptor);
+      assert.throws(() => metadata.getName(), TypeError);
     });
   });
 
   describe('.isPartial()', function () {
-    it('happy path', function () {
+    it('reads a value when it is provided', function () {
       var metadata = require('../index').maven_archetype_metadata(archetypeDescriptor);
       assert.equal(metadata.isPartial(), true);
+    });
+
+    it('returns false when invalid partial value is specified', function () {
+      var metadata = require('../index').maven_archetype_metadata(badArchetypeDescriptor);
+      assert.equal(metadata.isPartial(), false);
+    });
+
+    it('returns false when partial is not specified', function () {
+      var metadata = require('../index').maven_archetype_metadata(mostlyEmptyArchetypeDescriptor);
+      assert.equal(metadata.isPartial(), false);
     });
   });
 
   describe('.getRequiredProperties()', function () {
-    it('happy path', function () {
+    it('handles required property and associated value', function () {
       var metadata = require('../index').maven_archetype_metadata(archetypeDescriptor);
       var props = metadata.getRequiredProperties();
       assert.equal(props['foo'], 'bar');
+    });
+
+    it('handles required property when there is no value', function () {
+      var metadata = require('../index').maven_archetype_metadata(archetypeDescriptor);
+      var props = metadata.getRequiredProperties();
       assert.equal(props['baz'], undefined);
     });
-    it('no requiredProperties', function () {
-      var desc = [
-        '<?xml version="1.0" encoding="UTF-8"?>',
-        '<archetype-descriptor xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd" name="example" partial="true">',
-        '</archetype-descriptor>',
-      ].join('\n');
-      var metadata = require('../index').maven_archetype_metadata(desc);
+
+    it('empty object when requiredProperties element is missing', function () {
+      var metadata = require('../index').maven_archetype_metadata(emptyArchetypeDescriptor);
       assert.deepEqual(metadata.getRequiredProperties(), {});
     });
-    it('empty requiredProperties', function () {
-      var desc = [
-        '<?xml version="1.0" encoding="UTF-8"?>',
-        '<archetype-descriptor xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd" name="example" partial="true">',
-        '  <requiredProperties>',
-        '  </requiredProperties>',
-        '</archetype-descriptor>',
-      ].join('\n');
-      var metadata = require('../index').maven_archetype_metadata(desc);
+
+    it('empty object when requiredProperties element is empty', function () {
+      var metadata = require('../index').maven_archetype_metadata(mostlyEmptyArchetypeDescriptor);
       assert.deepEqual(metadata.getRequiredProperties(), {});
     });
   });
 
   describe('.getFileSets()', function () {
-    it('happy path', function () {
+    it('handles multiple valid fileSet elements', function () {
       var metadata = require('../index').maven_archetype_metadata(archetypeDescriptor);
       var fileSets = metadata.getFileSets();
       assert.equal(fileSets.length, 2);
@@ -118,13 +92,30 @@ describe('generator-alfresco-common:maven-archetype-metadata', function () {
         excludes: [],
       });
     });
+
+    it('empty list when fileSets element is missing', function () {
+      var metadata = require('../index').maven_archetype_metadata(emptyArchetypeDescriptor);
+      var fileSets = metadata.getFileSets();
+      assert.equal(fileSets.length, 0);
+    });
+
+    it('empty list when fileSets element is empty', function () {
+      var metadata = require('../index').maven_archetype_metadata(mostlyEmptyArchetypeDescriptor);
+      var fileSets = metadata.getFileSets();
+      assert.equal(fileSets.length, 0);
+    });
   });
 
   describe('.getModules()', function () {
-    it('happy path', function () {
+    it('handles multiple valid module elements', function () {
       var metadata = require('../index').maven_archetype_metadata(archetypeDescriptor);
       var modules = metadata.getModules();
       assert.equal(modules.length, 2);
+    });
+
+    it('handles complex module with sub-module', function () {
+      var metadata = require('../index').maven_archetype_metadata(archetypeDescriptor);
+      var modules = metadata.getModules();
       assert.deepEqual(modules[0], {
         dir: 'one',
         id: 'one',
@@ -152,7 +143,24 @@ describe('generator-alfresco-common:maven-archetype-metadata', function () {
           modules: [],
         }],
       });
+    });
+
+    it('handles mostly empty module', function () {
+      var metadata = require('../index').maven_archetype_metadata(archetypeDescriptor);
+      var modules = metadata.getModules();
       assert.deepEqual(modules[1], {dir: 'two', id: 'two', name: 'name2', fileSets: [], modules: []});
+    });
+
+    it('empty list when fileSets element is missing', function () {
+      var metadata = require('../index').maven_archetype_metadata(emptyArchetypeDescriptor);
+      var modules = metadata.getModules();
+      assert.equal(modules.length, 0);
+    });
+
+    it('empty list when fileSets element is empty', function () {
+      var metadata = require('../index').maven_archetype_metadata(mostlyEmptyArchetypeDescriptor);
+      var modules = metadata.getModules();
+      assert.equal(modules.length, 0);
     });
   });
 });

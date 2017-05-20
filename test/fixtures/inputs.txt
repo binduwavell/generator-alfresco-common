@@ -1,6 +1,0 @@
-Following were the inputs used to create this archetype:
-
-groupId: my.groupid
-artifactId: myartifactid
-version: 1.0-SNAPSHOT
-package: my.package

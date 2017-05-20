@@ -4,11 +4,13 @@
         name="All In One Archetype for Alfresco. Provides rapid development, IDE integration, and running embedded of Alfresco Repo, Share and Solr"
         xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
     <requiredProperties>
         <requiredProperty key="version">
             <defaultValue>1.0-SNAPSHOT</defaultValue>
         </requiredProperty>
     </requiredProperties>
+
     <modules>
         <module id="${rootArtifactId}-repo-amp" name="${rootArtifactId}-repo-amp" dir="__rootArtifactId__-repo-amp">
             <fileSets>
@@ -50,15 +52,6 @@
                         <include>dev-log4j.properties</include>
                     </includes>
                 </fileSet>
-                <fileSet encoding="UTF-8" filtered="false">
-                    <directory>src/main/resources</directory>
-                    <includes>
-                        <include>**</include>
-                    </includes>
-                    <excludes>
-                        <exclude>**/dev-log4j.properties</exclude>
-                    </excludes>
-                </fileSet>
             </fileSets>
         </module>
     </modules>
@@ -68,7 +61,6 @@
             <directory></directory>
             <includes>
                 <include>run.sh</include>
-                <include>run.bat</include>
             </includes>
         </fileSet>
     </fileSets>
