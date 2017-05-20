@@ -8,6 +8,7 @@ common.dependency_versions = require('./lib/dependency-versions');
 common.general_utils = require('./lib/general-utils');
 common.generator_output = require('./lib/generator-output');
 common.java_properties = require('./lib/java-properties');
+common.maven_archetype_file_filtering = require('./lib/maven-archetype-file-filtering');
 common.maven_archetype_generate = require('./lib/maven-archetype-generate');
 common.maven_archetype_metadata = require('./lib/maven-archetype-metadata');
 common.maven_pom = require('./lib/maven-pom');
