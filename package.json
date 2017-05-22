@@ -62,7 +62,7 @@
   },
   "scripts": {
     "eslint": "eslint index.js lib test || echo DONE",
-    "fixme": "node -e \"require('fixme')()\"",
+    "fixme": "node -e \"var fixme = require('fixme'); fixme({path: 'lib'}); fixme({path: 'test'})\"",
     "ncu": "ncu",
     "ncu:upgrade": "ncu -u",
     "precommit": "eslint index.js lib test",
