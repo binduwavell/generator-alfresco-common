@@ -113,6 +113,15 @@ describe('generator-alfresco-common:maven-archetype-generate', function () {
       ]);
     });
 
+    it('filters child module pom.xml files', function () {
+      assertFileIncludes(tempDir, 'myartifactid-repo-amp/pom.xml', [
+        '<artifactId>myartifactid-repo-amp</artifactId>',
+      ]);
+      assertFileIncludes(tempDir, 'repo/pom.xml', [
+        '<artifactId>repo</artifactId>',
+      ]);
+    });
+
     it('filtering happens when paths in fileset don\'t have __placeholders__', function () {
       assertFileDoesNotInclude(tempDir, '/repo/src/main/resources/alfresco/extension/dev-log4j.properties',
         'log4j.logger.${package}.demoamp.DemoComponent=${app.log.root.level}'
@@ -132,6 +141,20 @@ describe('generator-alfresco-common:maven-archetype-generate', function () {
         'package my.package.demoamp;'
       );
     });
+
+    it('adds child modules to parent poms', function () {
+      assertFileIncludes(tempDir, 'pom.xml', [
+        '<module>myartifactid-repo-amp</module>',
+        '<module>repo</module>',
+      ]);
+    });
+
+    it('does not add modules to poms with no children', function () {
+      assertFileDoesNotInclude(tempDir, 'repo/pom.xml', '<modules>');
+      assertFileDoesNotInclude(tempDir, 'myartifactid-repo-amp/pom.xml', '<modules>');
+    });
+
+    // TODO(bwavell): write a test that compares generated project to fixtures/generated-project
   });
 
   var assertFileIncludes = function (filePath, fileName, incs) {
