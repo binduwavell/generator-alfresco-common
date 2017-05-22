@@ -43,7 +43,8 @@
                 <fileSet encoding="UTF-8" filtered="false">
                     <directory>src/main/properties</directory>
                     <includes>
-                        <include>**/*.properties</include>
+                        <include>**/*.md</include>
+                      <include>**/*.properties</include>
                     </includes>
                 </fileSet>
                 <fileSet encoding="UTF-8" filtered="true">
@@ -60,7 +61,8 @@
         <fileSet encoding="UTF-8">
             <directory></directory>
             <includes>
-                <include>run.sh</include>
+              <include>README.md</include>
+              <include>run.sh</include>
             </includes>
         </fileSet>
     </fileSets>
