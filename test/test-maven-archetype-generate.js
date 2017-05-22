@@ -17,12 +17,13 @@ var _archetypeResourcesPath = path.join(_sourceArchetypePath, 'archetype-resourc
 describe('generator-alfresco-common:maven-archetype-generate', function () {
   var store = memFs.create();
   var fs = memFsEditor.create(store);
+  var tempDir = path.join(os.tmpdir(), 'generated-project');
   var yomock = {
     'fs': fs,
   };
 
   describe('.generate()', function () {
-    it('handles fixture archetype', function (/* done */) {
+    before(function (/* done */) {
       var archetypeGenerator = require('../index').maven_archetype_generate(yomock);
       var properties = {
         'groupId': 'my.groupid',
@@ -30,7 +31,6 @@ describe('generator-alfresco-common:maven-archetype-generate', function () {
         'version': '1.0-SNAPSHOT',
         'package': 'my.package',
       };
-      var tempDir = path.join(os.tmpdir(), 'generated-project');
 
       archetypeGenerator.generate(
         _archetypeMetadataPath,
@@ -40,16 +40,43 @@ describe('generator-alfresco-common:maven-archetype-generate', function () {
       );
 
       // Can use the following to write stuff out to disk and visually inspect what is
-      // produced. Don't forget to uncomment done in the it() function definition above.
+      // produced. Don't forget to uncomment done in the before() function definition
+      // above.
 
       // debug('LOOKING IN TEMP DIR', tempDir);
       // yomock.fs.commit(done);
+    });
 
+    it('copies pom files', function () {
       [
         'pom.xml',
+        'myartifactid-repo-amp/pom.xml',
+      ].forEach(file => {
+        assert.ok(memFsUtils.existsInMemory(yomock.fs, path.join(tempDir, file)));
+      });
+    });
+
+    it('copies top level files via multiple includes', function () {
+      [
         'README.md',
         'run.sh',
-        'myartifactid-repo-amp/pom.xml',
+      ].forEach(file => {
+        assert.ok(memFsUtils.existsInMemory(yomock.fs, path.join(tempDir, file)));
+      });
+    });
+
+    it('copies files when module has multiple fileset elements', function () {
+      [
+        'repo/src/main/properties/local/alfresco-global.properties',
+        'repo/src/main/properties/local/README.md',
+        'repo/src/main/resources/alfresco/extension/dev-log4j.properties',
+      ].forEach(file => {
+        assert.ok(memFsUtils.existsInMemory(yomock.fs, path.join(tempDir, file)));
+      });
+    });
+
+    it('copies files with __placeholders__ in the path', function () {
+      [
         'myartifactid-repo-amp/src/main/amp/config/alfresco/extension/templates/webscripts/helloworld.get.desc.xml',
         'myartifactid-repo-amp/src/main/amp/config/alfresco/extension/templates/webscripts/helloworld.get.html.ftl',
         'myartifactid-repo-amp/src/main/amp/config/alfresco/extension/templates/webscripts/helloworld.get.js',
@@ -59,17 +86,77 @@ describe('generator-alfresco-common:maven-archetype-generate', function () {
         'myartifactid-repo-amp/src/main/amp/config/alfresco/module/myartifactid-repo-amp/model/content-model.xml',
         'myartifactid-repo-amp/src/main/amp/config/alfresco/module/myartifactid-repo-amp/module-context.xml',
         'myartifactid-repo-amp/src/main/amp/module.properties',
-        'myartifactid-repo-amp/src/main/java/my/package/demoamp/Demo.java',
-        'repo/src/main/properties/local/alfresco-global.properties',
-        'repo/src/main/properties/local/README.md',
-        'repo/src/main/resources/alfresco/extension/dev-log4j.properties',
       ].forEach(file => {
         assert.ok(memFsUtils.existsInMemory(yomock.fs, path.join(tempDir, file)));
       });
+    });
 
-      // TODO(bwavell): Test file contents have been filtered or not as expected
+    it('copies files that are packaged', function () {
+      [
+        'myartifactid-repo-amp/src/main/java/my/package/demoamp/Demo.java',
+      ].forEach(file => {
+        assert.ok(memFsUtils.existsInMemory(yomock.fs, path.join(tempDir, file)));
+      });
+    });
+
+    it('filters pom.xml files', function () {
+      assertFileDoesNotInclude(tempDir, 'pom.xml', [
+        '${groupId}',
+        '${artifactId}',
+        '${version}',
+      ]);
+
+      assertFileIncludes(tempDir, 'pom.xml', [
+        '<groupId>my.groupid</groupId>',
+        '<artifactId>myartifactid</artifactId>',
+        '<version>1.0-SNAPSHOT</version>',
+      ]);
+    });
+
+    it('filtering happens when paths in fileset don\'t have __placeholders__', function () {
+      assertFileDoesNotInclude(tempDir, '/repo/src/main/resources/alfresco/extension/dev-log4j.properties',
+        'log4j.logger.${package}.demoamp.DemoComponent=${app.log.root.level}'
+      );
+
+      assertFileIncludes(tempDir, '/repo/src/main/resources/alfresco/extension/dev-log4j.properties',
+        'log4j.logger.my.package.demoamp.DemoComponent=${app.log.root.level}'
+      );
+    });
+
+    it('filtering happens when paths in fileset have __placeholders__', function () {
+      assertFileDoesNotInclude(tempDir, '/myartifactid-repo-amp/src/main/java/my/package/demoamp/Demo.java',
+        'package ${package}.demoamp;'
+      );
+
+      assertFileIncludes(tempDir, '/myartifactid-repo-amp/src/main/java/my/package/demoamp/Demo.java',
+        'package my.package.demoamp;'
+      );
     });
   });
+
+  var assertFileIncludes = function (filePath, fileName, incs) {
+    var includes = (Array.isArray(incs) ? incs : [incs]);
+    var fileText = yomock.fs.read(path.join(filePath, fileName));
+    includes.forEach(include => {
+      if (include instanceof RegExp) {
+        assert.ok(fileText.match(include));
+      } else {
+        assert.ok(fileText.includes(include));
+      }
+    });
+  };
+
+  var assertFileDoesNotInclude = function (filePath, fileName, incs) {
+    var includes = (Array.isArray(incs) ? incs : [incs]);
+    var fileText = yomock.fs.read(path.join(filePath, fileName));
+    includes.forEach(include => {
+      if (include instanceof RegExp) {
+        assert.ok(!fileText.match(include));
+      } else {
+        assert.ok(!fileText.includes(include));
+      }
+    });
+  };
 });
 
 // vim: autoindent expandtab tabstop=2 shiftwidth=2 softtabstop=2
