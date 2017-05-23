@@ -3,10 +3,9 @@
 require('shelljs/global');
 
 var nodeVersion = String(process.env.TRAVIS_NODE_VERSION);
-console.log('XXXXXXXX', nodeVersion);
 var cmd;
 
-if (nodeVersion.startsWith('v7')) {
+if (nodeVersion === '7') {
   cmd = 'npm run codecov:color';
 } else {
   cmd = 'npm run test:color';
