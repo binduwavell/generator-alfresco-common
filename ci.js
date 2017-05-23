@@ -3,7 +3,7 @@
 require('shelljs/global');
 
 var nodeVersion = String(process.argv[2]);
-console.log('XXXXXXXX' nodeVersion);
+console.log('XXXXXXXX', nodeVersion);
 var cmd;
 
 if (nodeVersion === 'v7') {
