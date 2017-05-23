@@ -2,11 +2,11 @@
 /* eslint-env node, shelljs */
 require('shelljs/global');
 
-var nodeVersion = String(process.argv[2]);
+var nodeVersion = String(process.env.TRAVIS_NODE_VERSION);
 console.log('XXXXXXXX', nodeVersion);
 var cmd;
 
-if (nodeVersion === 'v7') {
+if (nodeVersion.startsWith('v7')) {
   cmd = 'npm run codecov:color';
 } else {
   cmd = 'npm run test:color';

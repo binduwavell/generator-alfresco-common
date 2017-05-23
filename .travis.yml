@@ -9,7 +9,7 @@ node_js:
 cache: yarn
 
 script:
-  - node ci.js $NODE_VERSION
+  - node ci.js
 
 notifications:
   webhooks:
