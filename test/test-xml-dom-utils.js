@@ -5,7 +5,7 @@ var pd = require('pretty-data').pd;
 var xmldom = require('xmldom');
 var domutils = require('../index').xml_dom_utils;
 
-describe('generator-alfresco:xml-dom-utils', function () {
+describe('generator-alfresco-common:xml-dom-utils', function () {
   describe('.createChild()', function () {
     it('create top level element in empty root', function () {
       var xmlString = [

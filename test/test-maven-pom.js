@@ -2,7 +2,7 @@
 /* eslint-env node, mocha */
 var assert = require('assert');
 
-describe('generator-alfresco:maven-pom', function () {
+describe('generator-alfresco-common:maven-pom', function () {
   describe('.getOrCreateTopLevelElement()', function () {
     it('can create a shell pom', function () {
       var pom = require('../index').maven_pom();

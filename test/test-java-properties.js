@@ -3,7 +3,7 @@
 var assert = require('assert');
 var javaprops = require('../index').java_properties;
 
-describe('generator-alfresco:java-properties', function () {
+describe('generator-alfresco-common:java-properties', function () {
   it('can handle undefined input', function () {
     var props = javaprops.parse(undefined);
     assert.deepEqual(props, {});

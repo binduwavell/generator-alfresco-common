@@ -3,7 +3,7 @@
 var assert = require('assert');
 var chalk = require('chalk');
 
-describe('generator-alfresco:generator-output', function () {
+describe('generator-alfresco-common:generator-output', function () {
   beforeEach(function () {
     this.msg = '';
     this.logmock = {

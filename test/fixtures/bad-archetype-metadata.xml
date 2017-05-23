@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor
+  xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd"
+  partial="garbage">
+
+  <requiredProperties>
+    <requiredProperty key="foo">
+      <defaultValue>bar</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="baz" />
+  </requiredProperties>
+
+  <fileSets>
+    <fileSet filtered="true" packaged="true" encoding="UTF-8">
+      <directory>src/main/java</directory>
+      <includes>
+        <include>**/*.java</include>
+        <include>**/*.class</include>
+      </includes>
+      <excludes>
+        <exclude>**/*Test.java</exclude>
+      </excludes>
+    </fileSet>
+    <fileSet filtered="false" packaged="false" encoding="UTF-8">
+      <directory>src/main/test</directory>
+      <includes>
+        <include>**/*.properties</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+
+  <modules>
+    <module dir="one" id="one" name="name1">
+      <fileSets>
+        <fileSet packaged="true" filtered="false" encoding="UTF-8">
+          <directory>src/main/resources</directory>
+        </fileSet>
+      </fileSets>
+      <modules>
+        <module name="sub" dir="sub" id="sub">
+          <fileSets>
+            <fileSet packaged="false" filtered="true" encoding="UTF-8">
+              <directory>src/main/resources</directory>
+            </fileSet>
+          </fileSets>
+        </module>
+      </modules>
+    </module>
+    <module dir="two" id="two" name="name2">
+    </module>
+  </modules>
+</archetype-descriptor>

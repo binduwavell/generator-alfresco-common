@@ -2,10 +2,10 @@
 /* eslint-env node, mocha */
 var _ = require('lodash');
 var assert = require('assert');
-var debug = require('debug')('generator-alfresco-test:prompt-validators');
+var debug = require('debug')('generator-alfresco-common-test:prompt-validators');
 var validators = require('../index').prompt_validators;
 
-describe('generator-alfresco:prompt-validators', function () {
+describe('generator-alfresco-common:prompt-validators', function () {
   var yomock = {
     'config': {
       'get': function (key) { return undefined },

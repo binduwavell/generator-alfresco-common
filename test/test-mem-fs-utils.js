@@ -5,7 +5,7 @@ var memFs = require('mem-fs');
 var editor = require('mem-fs-editor');
 var memFsUtils = require('../index').mem_fs_utils;
 
-describe('generator-alfresco:mem-fs-utils', function () {
+describe('generator-alfresco-common:mem-fs-utils', function () {
   beforeEach(function () {
     this.store = memFs.create();
     this.fs = editor.create(this.store);
