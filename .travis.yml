@@ -1,10 +1,16 @@
 language: node_js
 
-env:
-  - NODE_VERSION=v7
-  - NODE_VERSION=v6
-  - NODE_VERSION=v5
-  - NODE_VERSION=v4
+node_js:
+  - "7"
+  - "6"
+  - "5"
+  - "4"
+
+#env:
+#  - NODE_VERSION=v7
+#  - NODE_VERSION=v6
+#  - NODE_VERSION=v5
+#  - NODE_VERSION=v4
 
 cache: yarn
 
