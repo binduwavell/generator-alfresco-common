@@ -6,20 +6,7 @@ node_js:
   - "5"
   - "4"
 
-#env:
-#  - NODE_VERSION=v7
-#  - NODE_VERSION=v6
-#  - NODE_VERSION=v5
-#  - NODE_VERSION=v4
-
 cache: yarn
-
-#install:
-#  - nvm install $NODE_VERSION
-#  - wget https://yarnpkg.com/install.sh
-#  - chmod 755 install.sh
-#  - ./install.sh
-#  - $HOME/.yarn/bin/yarn
 
 script:
   - node ci.js $NODE_VERSION
