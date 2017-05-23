@@ -9,8 +9,7 @@ node_js:
 cache: yarn
 
 script:
-  - if [ $TRAVIS_NODE_VERSION = 7 ]; then npm run codecov:color; fi
-  - if [ $TRAVIS_NODE_VERSION != 7 ]; then npm run test:color; fi
+  - if [ $TRAVIS_NODE_VERSION = 7 ]; then npm run codecov; else npm test; fi
 
 notifications:
   webhooks:
