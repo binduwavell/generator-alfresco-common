@@ -9,7 +9,7 @@
   ],
   "dependencies": {
     "mute": [
-      "shelljs"
+      "window-size"
     ]
   }
 }

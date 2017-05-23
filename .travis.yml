@@ -1,25 +1,15 @@
-language: java
+language: node_js
 
-jdk:
-  - oraclejdk8
+node_js:
+  - "7"
+  - "6"
+  - "5"
+  - "4"
 
-env:
-  - NODE_VERSION=v7
-  - NODE_VERSION=v6
-  - NODE_VERSION=v5
-  - NODE_VERSION=v4
-
-cache:
-  directories:
-  - node_modules
-
-install:
-  - nvm install $NODE_VERSION
-  - npm install
+cache: yarn
 
 script:
-  - nvm use $NODE_VERSION
-  - node ci.js $NODE_VERSION
+  - node ci.js
 
 notifications:
   webhooks:
