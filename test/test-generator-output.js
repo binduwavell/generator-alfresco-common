@@ -2,11 +2,9 @@
 /* eslint-env node, mocha */
 var assert = require('assert');
 var chalk = require('chalk');
-var size = require('window-size');
 
 describe('generator-alfresco-common:generator-output', function () {
   beforeEach(function () {
-    console.log('SIZE', size);
     this.msg = '';
     this.logmock = {
       log: function (message) {
