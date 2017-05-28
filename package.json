@@ -1,6 +1,6 @@
 {
   "name": "generator-alfresco-common",
-  "version": "0.9.9",
+  "version": "0.9.10",
   "description": "Common code for Alfresco yeoman generator",
   "license": "Apache-2.0",
   "main": "index.js",
@@ -62,8 +62,7 @@
     "npm-check-updates": "2.11.1",
     "shelljs": "0.7.7"
   },
-  "config": {
-  },
+  "config": {},
   "scripts": {
     "eslint": "eslint index.js lib test || echo DONE",
     "fixme": "node -e \"var fixme = require('fixme'); fixme({path: 'lib'}); fixme({path: 'test'})\"",
