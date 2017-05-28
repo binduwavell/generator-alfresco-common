@@ -24,6 +24,10 @@ Constants used by our generators.
 
 Code that allows us to detect the version of Maven and Java on a machine. We use this to block folks from creating an SDK project if said project will not run in the current environment.
 
+#### general-utils
+
+General utilities not provided by lodash.
+
 #### generator-output
 
 Some simple methods for logging consistently.
@@ -31,6 +35,22 @@ Some simple methods for logging consistently.
 #### java-properties
 
 Provides methods for reading, modifying and writing Java properties files. This is by no means a complete impelemntation of the properties file spect, but it's enough for our generators at this time.
+
+#### maven-archetype-file-filtering
+
+Given a file and an object with key/values, this goes through the file and replaces velocity style references to the given keys with the provided values.
+
+#### maven-archetype-generate
+
+Emulates `mvn archetype:generate` to the extent that we can create Alfresco All In One archetype projects from an exploded archetype jar file.
+
+#### maven-archetype-metadata
+
+Helps us read archetype-metadata.xml files used to describe how maven archetype jar files should be generated into real projects.
+
+#### maven-archetype-path-filtering
+
+Given a path and an object with key/values, this goes through the path and replaces \_\_placeholder\_\_ references to the given keys with the provided values.
 
 #### maven-pom
 
