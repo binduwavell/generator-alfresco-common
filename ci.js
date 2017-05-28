@@ -1,6 +1,7 @@
 #!/usr/bin/env node
+'use strict';
 /* eslint-env node, shelljs */
-require('shelljs/global');
+let execSync = require('child_process').execSync;
 
 var nodeVersion = String(process.env.TRAVIS_NODE_VERSION);
 var cmd;
@@ -11,11 +12,9 @@ if (nodeVersion === '7') {
   cmd = 'npm run test:color';
 }
 
-var proc = exec(cmd, {stdin: 'inherit'});
-if (proc === undefined || proc === null) {
-  echo('ERROR: unable to execute tests');
-  exit(1);
-} else if (proc.code !== 0) {
-  echo('ERROR: unable to execute tests');
-  exit(proc.code);
+try {
+  execSync(cmd, {stdio: [process.stdout, process.stderr]});
+} catch (err) {
+  console.log('ERROR: unable to execute tests: %s', err.message);
+  process.exit(1);
 }

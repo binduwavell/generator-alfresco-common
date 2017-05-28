@@ -38,7 +38,7 @@
     "semver": "5.3.0",
     "slash": "1.0.0",
     "split": "1.0.0",
-    "window-size": "0.3.0",
+    "window-size": "1.0.0",
     "wrap-ansi": "2.1.0",
     "xmldom": "0.1.27",
     "xpath": "0.0.24"
