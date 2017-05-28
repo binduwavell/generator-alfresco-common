@@ -8,6 +8,9 @@ node_js:
 
 cache: yarn
 
+env:
+  - COLUMNS=80
+
 script:
   - "if [[ '${TRAVIS_NODE_VERSION}' == '7' ]]; then npm run codecov:color; else npm run test:color; fi"
 
