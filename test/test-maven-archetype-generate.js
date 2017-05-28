@@ -99,6 +99,14 @@ describe('generator-alfresco-common:maven-archetype-generate', function () {
       });
     });
 
+    it('does not copy files that are excluded', function () {
+      [
+        'myartifactid-repo-amp/src/main/amp/config/IGNORED.md',
+      ].forEach(file => {
+        assert.ok(!memFsUtils.existsInMemory(yomock.fs, path.join(tempDir, file)));
+      });
+    });
+
     it('filters pom.xml files', function () {
       assertFileDoesNotInclude(tempDir, 'pom.xml', [
         '${groupId}',
@@ -123,9 +131,10 @@ describe('generator-alfresco-common:maven-archetype-generate', function () {
     });
 
     it('filtering happens when paths in fileset don\'t have __placeholders__', function () {
-      assertFileDoesNotInclude(tempDir, '/repo/src/main/resources/alfresco/extension/dev-log4j.properties',
-        'log4j.logger.${package}.demoamp.DemoComponent=${app.log.root.level}'
-      );
+      assertFileDoesNotInclude(tempDir, '/repo/src/main/resources/alfresco/extension/dev-log4j.properties', [
+        '#set( $symbol_pound = \'#\' )',
+        'log4j.logger.${package}.demoamp.DemoComponent=${app.log.root.level}',
+      ]);
 
       assertFileIncludes(tempDir, '/repo/src/main/resources/alfresco/extension/dev-log4j.properties',
         'log4j.logger.my.package.demoamp.DemoComponent=${app.log.root.level}'
