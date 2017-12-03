@@ -847,7 +847,7 @@ describe('generator-alfresco-common:maven-pom', function () {
       overlay = pom.findOverlay('com.ziaconsulting', 'test', 'amp');
       assert.ok(overlay);
       assert.equal(overlay.toString(),
-      '<overlay xmlns="http://maven.apache.org/POM/4.0.0"><groupId>com.ziaconsulting</groupId><artifactId>test</artifactId><type>amp</type></overlay>');
+        '<overlay xmlns="http://maven.apache.org/POM/4.0.0"><groupId>com.ziaconsulting</groupId><artifactId>test</artifactId><type>amp</type></overlay>');
     });
   });
 
