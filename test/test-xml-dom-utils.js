@@ -1,7 +1,6 @@
 'use strict';
 /* eslint-env node, mocha */
 var assert = require('assert');
-var pd = require('pretty-data').pd;
 var xmldom = require('xmldom');
 var domutils = require('../index').xml_dom_utils;
 
@@ -19,7 +18,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       assert.ok(rootElement);
       var element = domutils.createChild(rootElement, 'ns', 'node');
       assert.ok(element);
-      var docStr = pd.xml(new xmldom.XMLSerializer().serializeToString(doc));
+      var docStr = domutils.prettyPrint(doc);
       assert.equal(docStr, [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<!-- Comment -->',
@@ -45,7 +44,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       assert.ok(rootElement);
       var element = domutils.createChild(rootElement, 'ns', 'node');
       assert.ok(element);
-      var docStr = pd.xml(new xmldom.XMLSerializer().serializeToString(doc));
+      var docStr = domutils.prettyPrint(doc);
       assert.equal(docStr, [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<!-- Comment -->',
@@ -72,7 +71,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       assert.ok(rootElement);
       var element = domutils.createChild(rootElement, 'ns', 'node', true);
       assert.ok(element);
-      var docStr = pd.xml(new xmldom.XMLSerializer().serializeToString(doc));
+      var docStr = domutils.prettyPrint(doc);
       assert.equal(docStr, [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<!-- Comment -->',
@@ -121,6 +120,44 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
     });
   });
 
+  describe('.getChildren()', function () {
+    it('get top level elements', function () {
+      var xmlString = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<!-- Comment -->',
+        '<root xmlns="http://www.example.com/">',
+        '  <element />',
+        '  <element />',
+        '</root>',
+      ].join('\n');
+      var doc = new xmldom.DOMParser().parseFromString(xmlString, 'text/xml');
+      assert.ok(doc);
+      var rootElement = doc.documentElement;
+      assert.ok(rootElement);
+      var elements = domutils.getChildren(rootElement, 'ns', 'element');
+      assert.ok(elements);
+      assert.equal(elements.length, 2);
+      assert.ok(elements[0].nodeType === elements[0].ELEMENT_NODE);
+      assert.ok(elements[1].nodeType === elements[1].ELEMENT_NODE);
+    });
+
+    it('undefined for non-existent children', function () {
+      var xmlString = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<!-- Comment -->',
+        '<root xmlns="http://www.example.com/">',
+        '  <element />',
+        '</root>',
+      ].join('\n');
+      var doc = new xmldom.DOMParser().parseFromString(xmlString, 'text/xml');
+      assert.ok(doc);
+      var rootElement = doc.documentElement;
+      assert.ok(rootElement);
+      var elements = domutils.getChildren(rootElement, 'ns', 'garbage');
+      assert.equal(elements.length, 0);
+    });
+  });
+
   describe('.removeChild()', function () {
     it('delete top level element', function () {
       var xmlString = [
@@ -135,7 +172,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       var rootElement = doc.documentElement;
       assert.ok(rootElement);
       domutils.removeChild(rootElement, 'ns', 'element');
-      var docStr = pd.xml(new xmldom.XMLSerializer().serializeToString(doc));
+      var docStr = domutils.prettyPrint(doc);
       assert.equal(docStr, [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<!-- Comment -->',
@@ -161,7 +198,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       assert.ok(rootElement);
       var element = domutils.getChild(rootElement, 'ns', 'element');
       domutils.removeParentsChild(rootElement, element);
-      var docStr = pd.xml(new xmldom.XMLSerializer().serializeToString(doc));
+      var docStr = domutils.prettyPrint(doc);
       assert.equal(docStr, [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<!-- Comment -->',
@@ -185,7 +222,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       assert.ok(rootElement);
       var element = domutils.getChild(rootElement, 'ns', 'element');
       domutils.removeParentsChild(element, rootElement);
-      var docStr = pd.xml(new xmldom.XMLSerializer().serializeToString(doc));
+      var docStr = domutils.prettyPrint(doc);
       assert.equal(docStr, [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<!-- Comment -->',
@@ -213,7 +250,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       var element = domutils.getOrCreateChild(rootElement, 'ns', 'element');
       assert.ok(element);
       assert.ok(element.nodeType === element.ELEMENT_NODE);
-      var elementStr = pd.xml(new xmldom.XMLSerializer().serializeToString(element));
+      var elementStr = domutils.prettyPrint(element);
       assert.equal(elementStr, [
         '<element foo="bar" ',
         '  xmlns="http://www.example.com/"/>',
@@ -234,7 +271,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       var element = domutils.getOrCreateChild(rootElement, 'ns', 'element');
       assert.ok(element);
       assert.ok(element.nodeType === element.ELEMENT_NODE);
-      var elementStr = pd.xml(new xmldom.XMLSerializer().serializeToString(element));
+      var elementStr = domutils.prettyPrint(element);
       assert.equal(elementStr, [
         '<element ',
         '  xmlns="http://www.example.com/"/>',
@@ -284,7 +321,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       var sibling1 = domutils.getNextElementSibling(element);
       assert.ok(sibling1);
       assert.ok(sibling1.nodeType === sibling1.ELEMENT_NODE);
-      var sibling1Str = pd.xml(new xmldom.XMLSerializer().serializeToString(sibling1));
+      var sibling1Str = domutils.prettyPrint(sibling1);
       assert.equal(sibling1Str, [
         '<element2 ',
         '  xmlns="http://www.example.com/"/>',
@@ -292,7 +329,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       var sibling2 = domutils.getNextElementSibling(sibling1);
       assert.ok(sibling2);
       assert.ok(sibling2.nodeType === sibling2.ELEMENT_NODE);
-      var sibling2Str = pd.xml(new xmldom.XMLSerializer().serializeToString(sibling2));
+      var sibling2Str = domutils.prettyPrint(sibling2);
       assert.equal(sibling2Str, [
         '<element3 ',
         '  xmlns="http://www.example.com/"/>',
@@ -388,15 +425,14 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       assert.ok(doc);
       var xp = "/pom:project/pom:profiles/pom:profile[pom:id='functional-testing']/pom:build/pom:plugins/pom:plugin[1]";
       var element = domutils.getFirstNodeMatchingXPath(xp, doc);
-      // console.log(pd.xml(new xmldom.XMLSerializer().serializeToString(element)));
-      assert.equal(pd.xml(new xmldom.XMLSerializer().serializeToString(element)), [
+      assert.equal(domutils.prettyPrint(element), [
         '<plugin ',
         '  xmlns="http://maven.apache.org/POM/4.0.0">you found me',
         '</plugin>',
       ].join('\n'));
     });
 
-    it('finds element under an using a relative xpath', function () {
+    it('finds element under an element using a relative xpath', function () {
       var pomString = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<!-- Stuff -->',
@@ -429,15 +465,41 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       assert.ok(doc);
       var xp1 = "/pom:project/pom:profiles/pom:profile[pom:id='functional-testing']";
       var element1 = domutils.getFirstNodeMatchingXPath(xp1, doc);
-      // console.log(pd.xml(new xmldom.XMLSerializer().serializeToString(element1)));
       var xp2 = 'pom:build/pom:plugins/pom:plugin[1]';
       var element2 = domutils.getFirstNodeMatchingXPath(xp2, element1);
-      // console.log(pd.xml(new xmldom.XMLSerializer().serializeToString(element2)));
-      assert.equal(pd.xml(new xmldom.XMLSerializer().serializeToString(element2)), [
+      assert.equal(domutils.prettyPrint(element2), [
         '<plugin ',
         '  xmlns="http://maven.apache.org/POM/4.0.0">you found me',
         '</plugin>',
       ].join('\n'));
+    });
+
+    it('finds element in maven file with property value match', function () {
+      var pomString = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<!-- Stuff -->',
+        '<project xmlns="http://maven.apache.org/POM/4.0.0">',
+        '  <stuff>${property}</stuff>',
+        '</project>',
+      ].join('\n');
+      var doc = new xmldom.DOMParser().parseFromString(pomString, 'text/xml');
+      assert.ok(doc);
+      var xp = "/pom:project[pom:stuff = '${property}']/pom:stuff";
+      var element = domutils.getFirstNodeMatchingXPath(xp, doc);
+      assert.equal(domutils.prettyPrint(element), [
+        '<stuff ',
+        '  xmlns="http://maven.apache.org/POM/4.0.0">${property}',
+        '</stuff>',
+      ].join('\n'));
+    });
+
+    it('returns undefined when no node matches', function () {
+      var pomString = '<?xml version="1.0" encoding="UTF-8"?><project/>';
+      var doc = new xmldom.DOMParser().parseFromString(pomString, 'text/xml');
+      assert.ok(doc);
+      var xp = '/pom:project/pom:stuff';
+      var element = domutils.getFirstNodeMatchingXPath(xp, doc);
+      assert.equal(element, undefined);
     });
   });
 });
