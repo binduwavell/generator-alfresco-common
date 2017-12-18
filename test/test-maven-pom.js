@@ -1,6 +1,7 @@
 'use strict';
 /* eslint-env node, mocha */
 var assert = require('assert');
+var domutils = require('../index').xml_dom_utils;
 
 describe('generator-alfresco-common:maven-pom', function () {
   describe('.getOrCreateTopLevelElement()', function () {
@@ -63,7 +64,6 @@ describe('generator-alfresco-common:maven-pom', function () {
     it('can set project GAV', function () {
       var pom = require('../index').maven_pom();
       pom.setProjectGAV('${project.groupId}', 'test', '${project.version}', 'amp');
-      // console.log(pom.getPOMString());
       var groupIdNode = pom.getTopLevelElement('pom', 'groupId');
       assert.equal(groupIdNode, undefined);
       var artifactIdNode = pom.getOrCreateTopLevelElement('pom', 'artifactId');
@@ -730,6 +730,10 @@ describe('generator-alfresco-common:maven-pom', function () {
       '        <groupId>com.ziaconsulting</groupId>',
       '        <artifactId>test</artifactId>',
       '      </plugin>',
+      '      <plugin>',
+      '        <groupId>${project.groupId}</groupId>',
+      '        <artifactId>test</artifactId>',
+      '      </plugin>',
       '    </plugins>',
       '  </build>',
       '</project>',
@@ -748,6 +752,19 @@ describe('generator-alfresco-common:maven-pom', function () {
         ].join('\n'));
     });
 
+    it('find plugin where groupId has a property reference', function () {
+      var pom = require('../index').maven_pom(pomString);
+      var plugin = pom.findPlugin('${project.groupId}', 'test');
+      assert.ok(plugin);
+      assert.equal(plugin.toString(),
+        [
+          '<plugin xmlns="http://maven.apache.org/POM/4.0.0">',
+          '        <groupId>${project.groupId}</groupId>',
+          '        <artifactId>test</artifactId>',
+          '      </plugin>',
+        ].join('\n'));
+    });
+
     it('find plugin by only artifactId', function () {
       var pom = require('../index').maven_pom(pomString);
       var plugin = pom.findPlugin('test');
@@ -759,6 +776,65 @@ describe('generator-alfresco-common:maven-pom', function () {
           '        <artifactId>test</artifactId>',
           '      </plugin>',
         ].join('\n'));
+    });
+
+    it('returns undefined when no plugin is found', function () {
+      var pom = require('../index').maven_pom(pomString);
+      var plugin = pom.findPlugin('asdf');
+      assert.equal(plugin, undefined);
+    });
+  });
+
+  describe('.addPlugin()', function () {
+    var pomString = [
+      '<?xml version="1.0" encoding="UTF-8"?>',
+      '<!-- Stuff -->',
+      '<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">',
+      '  <build>',
+      '    <plugins>',
+      '      <plugin>',
+      '        <groupId>org.apache.maven.plugins</groupId>',
+      '        <artifactId>maven-install-plugin</artifactId>',
+      '      </plugin>',
+      '    </plugins>',
+      '  </build>',
+      '</project>',
+    ].join('\n');
+
+    it('adds plugin new', function () {
+      var pom = require('../index').maven_pom(pomString);
+      var plugin = pom.addPlugin('org.apache.maven.plugins', 'maven-resources-plugin', '3.0.1');
+      assert.ok(plugin);
+      // Now search for our plugin to make sure we get the correct xml
+      plugin = pom.findPlugin('org.apache.maven.plugins', 'maven-resources-plugin');
+      assert.ok(plugin);
+      assert.equal(plugin.toString(),
+        '<plugin xmlns="http://maven.apache.org/POM/4.0.0"><groupId>org.apache.maven.plugins</groupId><artifactId>maven-resources-plugin</artifactId><version>3.0.1</version></plugin>');
+      const build = pom.getTopLevelElement('pom', 'build');
+      assert.ok(build);
+      const plugins = domutils.getChild(build, 'pom', 'plugins');
+      assert.ok(plugins);
+      const pluginInstances = domutils.getChildren(plugins, 'pom', 'plugin');
+      assert.equal(pluginInstances.length, 2);
+    });
+
+    it('updates existing plugin', function () {
+      var pom = require('../index').maven_pom(pomString);
+      var plugin = pom.addPlugin('org.apache.maven.plugins', 'maven-install-plugin', '2.5.2');
+      assert.ok(plugin);
+      assert.equal(plugin.toString(),
+        [
+          '<plugin xmlns="http://maven.apache.org/POM/4.0.0">',
+          '        <groupId>org.apache.maven.plugins</groupId>',
+          '        <artifactId>maven-install-plugin</artifactId>',
+          '      <version>2.5.2</version></plugin>',
+        ].join('\n'));
+      const build = pom.getTopLevelElement('pom', 'build');
+      assert.ok(build);
+      const plugins = domutils.getChild(build, 'pom', 'plugins');
+      assert.ok(plugins);
+      const pluginInstances = domutils.getChildren(plugins, 'pom', 'plugin');
+      assert.equal(pluginInstances.length, 1);
     });
   });
 
