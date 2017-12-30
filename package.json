@@ -1,6 +1,6 @@
 {
   "name": "generator-alfresco-common",
-  "version": "0.9.17",
+  "version": "0.9.19",
   "description": "Common code for Alfresco yeoman generator",
   "license": "Apache-2.0",
   "main": "index.js",
@@ -11,7 +11,7 @@
     "url": "https://github.com/binduwavell"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=4.0.0"
   },
   "files": [
     "index.js",
@@ -20,9 +20,7 @@
   "keywords": [
     "alfresco",
     "all-in-one",
-    "generator",
-    "yeoman",
-    "yeoman-generator"
+    "generator-alfresco"
   ],
   "dependencies": {
     "chalk": "2.3.0",
