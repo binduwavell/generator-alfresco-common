@@ -10,6 +10,9 @@ node_js:
 script:
   - if [[ "${TRAVIS_NODE_VERSION}" == '8' ]]; then npm run codecov; else npm run test; fi
 
+after_failure:
+	- cat /home/travis/.npm/_logs/*-debug.log
+
 notifications:
   webhooks:
     urls:
