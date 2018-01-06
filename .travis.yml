@@ -7,15 +7,15 @@ node_js:
   - "5"
   - "4"
 
+install:
+  - npm install || export FAILURE=$?
+  - if [[ "${FAILURE}" ]]; then cat /home/travis/.npm/_logs/*-debug.log; exit $FAILURE; fi
+
 script:
   - if [[ "${TRAVIS_NODE_VERSION}" == '8' ]]; then npm run codecov; else npm run test; fi
 
 after_failure:
   - echo FAILURE
-  - cat /home/travis/.npm/_logs/*-debug.log
-
-after_success:
-  - echo SUCCESS
   - cat /home/travis/.npm/_logs/*-debug.log
 
 notifications:
