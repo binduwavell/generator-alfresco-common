@@ -8,6 +8,7 @@ node_js:
   - "4"
 
 install:
+  - npm cache verify
   - npm install || export FAILURE=$?
   - if [[ "${FAILURE}" ]]; then cat /home/travis/.npm/_logs/*-debug.log; exit $FAILURE; fi
 
