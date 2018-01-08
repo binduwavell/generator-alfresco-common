@@ -16,6 +16,12 @@ describe('generator-alfresco-common:maven-archetype-path-filtering', function ()
       assert.equal(pathFiltering.filter(input, {placeholder: 'value'}), output);
     });
 
+    it('handles single instance with multiple path elements', function () {
+      var input = '/before/__placeholder__/after';
+      var output = '/before/ministry/of/magic/after';
+      assert.equal(pathFiltering.filter(input, {placeholder: 'ministry/of/magic'}), output);
+    });
+
     it('handles multi instance replacement', function () {
       var input = '/__placeholder1__/__placeholder2__';
       var properties = {
