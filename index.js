@@ -3,6 +3,7 @@
 var common = module.exports;
 
 common.alfresco_module_registry = require('./lib/alfresco-module-registry');
+common.cli_generator = require('./lib/cli-generator');
 common.constants = require('./lib/constants');
 common.dependency_versions = require('./lib/dependency-versions');
 common.general_utils = require('./lib/general-utils');
