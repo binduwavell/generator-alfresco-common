@@ -40,7 +40,8 @@
     "window-size": "1.1.0",
     "wrap-ansi": "3.0.1",
     "xmldom": "0.1.27",
-    "xpath": "0.0.27"
+    "xpath": "0.0.27",
+    "yeoman-generator": "2.0.2"
   },
   "devDependencies": {
     "codecov": "3.0.0",
