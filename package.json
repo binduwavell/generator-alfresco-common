@@ -1,6 +1,6 @@
 {
   "name": "generator-alfresco-common",
-  "version": "0.9.26",
+  "version": "0.9.27",
   "description": "Common code for Alfresco yeoman generator",
   "license": "Apache-2.0",
   "main": "index.js",
@@ -25,7 +25,7 @@
   "dependencies": {
     "chalk": "2.4.0",
     "cross-spawn": "6.0.5",
-    "deasync": "0.1.12",
+    "deasync": "0.1.14",
     "debug": "3.1.0",
     "deep-extend": "0.5.0",
     "glob": "7.1.2",
