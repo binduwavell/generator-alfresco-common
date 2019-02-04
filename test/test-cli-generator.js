@@ -82,14 +82,14 @@ describe('generator-alfresco-common:cli-generator', function () {
       return helpers.run(TestGenerator)
         .inDir(osTempDir)
         .withArguments(['my-argument'])
-        .withOptions({'myprompt': 'option value'})
+        .withOptions({ 'myprompt': 'option value' })
         .toPromise();
     });
 
     it('handles option values', function () {
-      assert.equal(state.bail, false);
-      assert.equal(state.myargument, 'my-argument');
-      assert.equal(state.myprompt, 'option value');
+      assert.strictEqual(state.bail, false);
+      assert.strictEqual(state.myargument, 'my-argument');
+      assert.strictEqual(state.myprompt, 'option value');
     });
 
     it('sets appropriate filter function', function () {
@@ -97,9 +97,9 @@ describe('generator-alfresco-common:cli-generator', function () {
       assert.ok(myprompt.hasOwnProperty('filter'));
       const filter = myprompt.filter;
       let v = filter('');
-      assert.equal(v, undefined);
+      assert.strictEqual(v, undefined);
       v = filter(123);
-      assert.equal(v, '123');
+      assert.strictEqual(v, '123');
     });
 
     it('sets appropriate validate function', function () {
@@ -108,9 +108,9 @@ describe('generator-alfresco-common:cli-generator', function () {
       const validate = myprompt.validate;
       let v = validate('');
       // In IntelliJ, we get the ASCII back, in a terminal we don't. Just stripping it!
-      assert.equal(stripAnsi(v), 'The required myprompt value is missing or invalid');
+      assert.strictEqual(stripAnsi(v), 'The required myprompt value is missing or invalid');
       v = validate('a value');
-      assert.equal(v, true);
+      assert.strictEqual(v, true);
     });
 
     it('uses validate invalidMessage string for generated validate function', function () {
@@ -121,7 +121,7 @@ describe('generator-alfresco-common:cli-generator', function () {
       origprompt.invalidMessage = 'Bad stuff';
       const v = validate('');
       delete origprompt.invalidMessage;
-      assert.equal(v, 'Bad stuff');
+      assert.strictEqual(v, 'Bad stuff');
     });
 
     it('uses validate invalidMessage function for generated validate function', function () {
@@ -134,7 +134,7 @@ describe('generator-alfresco-common:cli-generator', function () {
       };
       const v = validate('');
       delete origprompt.invalidMessage;
-      assert.equal(v, 'Your input is bad');
+      assert.strictEqual(v, 'Your input is bad');
     });
   });
 
@@ -144,14 +144,14 @@ describe('generator-alfresco-common:cli-generator', function () {
       return helpers.run(TestGenerator)
         .inDir(osTempDir)
         .withArguments(['your-argument'])
-        .withPrompts({'myprompt': 'prompt value'})
+        .withPrompts({ 'myprompt': 'prompt value' })
         .toPromise();
     });
 
     it('handles prompt values', function () {
-      assert.equal(state.bail, false);
-      assert.equal(state.myargument, 'your-argument');
-      assert.equal(state.myprompt, 'prompt value');
+      assert.strictEqual(state.bail, false);
+      assert.strictEqual(state.myargument, 'your-argument');
+      assert.strictEqual(state.myprompt, 'prompt value');
     });
   });
 
@@ -161,12 +161,12 @@ describe('generator-alfresco-common:cli-generator', function () {
       state.myprompt = 'not overridden when we bail';
       return helpers.run(TestGenerator)
         .inDir(osTempDir)
-        .withPrompts({'myprompt': 'bail'})
+        .withPrompts({ 'myprompt': 'bail' })
         .toPromise();
     });
 
     it('does not run prompting result function', function () {
-      assert.equal(state.myprompt, 'not overridden when we bail');
+      assert.strictEqual(state.myprompt, 'not overridden when we bail');
     });
   });
 
@@ -180,7 +180,7 @@ describe('generator-alfresco-common:cli-generator', function () {
     });
 
     it('handles prompt values', function () {
-      assert.equal(state.myprompt, 'not overridden when required property not set');
+      assert.strictEqual(state.myprompt, 'not overridden when required property not set');
     });
   });
 });

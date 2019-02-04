@@ -7,13 +7,13 @@ describe('generator-alfresco-common:maven-archetype-file-filtering', function ()
   describe('.filter()', function () {
     it('passes through normal text', function () {
       var unchanged = 'unchanged';
-      assert.equal(fileFiltering.filter(unchanged), unchanged);
+      assert.strictEqual(fileFiltering.filter(unchanged), unchanged);
     });
 
     it('renames properties', function () {
       var input = 'X${property}X';
       var output = 'XvalueX';
-      assert.equal(fileFiltering.filter(input, {property: 'value'}), output);
+      assert.strictEqual(fileFiltering.filter(input, { property: 'value' }), output);
     });
 
     it('handles the set directive with bare reference', function () {
@@ -22,7 +22,7 @@ describe('generator-alfresco-common:maven-archetype-file-filtering', function ()
         'X $keyword X',
       ].join('\n');
       var output = 'X value X';
-      assert.equal(fileFiltering.filter(input), output);
+      assert.strictEqual(fileFiltering.filter(input), output);
     });
 
     it('handles the set directive with bracketed reference', function () {
@@ -31,7 +31,7 @@ describe('generator-alfresco-common:maven-archetype-file-filtering', function ()
         'X${keyword}X',
       ].join('\n');
       var output = 'XvalueX';
-      assert.equal(fileFiltering.filter(input), output);
+      assert.strictEqual(fileFiltering.filter(input), output);
     });
 
     it('does not apply set values before they are defined but does apply them afterward', function () {
@@ -41,7 +41,7 @@ describe('generator-alfresco-common:maven-archetype-file-filtering', function ()
         'X${keyword}X',
       ].join('\n');
       var output = 'X${keyword}X\nXvalueX';
-      assert.equal(fileFiltering.filter(input), output);
+      assert.strictEqual(fileFiltering.filter(input), output);
     });
 
     it('handles properties and the set directive', function () {
@@ -50,7 +50,7 @@ describe('generator-alfresco-common:maven-archetype-file-filtering', function ()
         '${symbol_dollar}${keyword}',
       ].join('\n');
       var output = '$value';
-      assert.equal(fileFiltering.filter(input, {keyword: 'value'}), output);
+      assert.strictEqual(fileFiltering.filter(input, { keyword: 'value' }), output);
     });
   });
 });

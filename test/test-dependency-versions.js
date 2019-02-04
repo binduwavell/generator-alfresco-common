@@ -31,7 +31,7 @@ describe('generator-alfresco-common:dependency-versions', function () {
 
     it('does not get a java version if bad cmd is provided', function () {
       var ver = dependencyVersions.getJavaVersion('asdfASDF');
-      assert.equal(ver, undefined);
+      assert.strictEqual(ver, undefined);
     });
   });
 
@@ -43,12 +43,12 @@ describe('generator-alfresco-common:dependency-versions', function () {
 
     it('does not get a maven version if bad cmd is provided', function () {
       var ver = dependencyVersions.getMavenVersion('asdfASDF');
-      assert.equal(ver, undefined);
+      assert.strictEqual(ver, undefined);
     });
 
     it('does not get a maven version if cmd with incompatible version string is provided', function () {
       var ver = dependencyVersions.getMavenVersion('/bin/bash');
-      assert.equal(ver, undefined);
+      assert.strictEqual(ver, undefined);
     });
 
     it('does not get a maven version if bad M2_HOME is provided', function () {
@@ -60,7 +60,7 @@ describe('generator-alfresco-common:dependency-versions', function () {
       } else {
         delete process.env.M2_HOME;
       }
-      assert.equal(ver, undefined);
+      assert.strictEqual(ver, undefined);
     });
   });
 
@@ -84,7 +84,7 @@ describe('generator-alfresco-common:dependency-versions', function () {
         ['-version'],
         /^.*bash.*version ([0-9.]*)/
       );
-      assert.equal(match, undefined);
+      assert.strictEqual(match, undefined);
     });
 
     // Assumes /bin/echo is installed on the test system
@@ -95,7 +95,7 @@ describe('generator-alfresco-common:dependency-versions', function () {
         ['-version'],
         /^.*bash.*version ([0-9.]*)/
       );
-      assert.equal(match, undefined);
+      assert.strictEqual(match, undefined);
     });
   });
 });
