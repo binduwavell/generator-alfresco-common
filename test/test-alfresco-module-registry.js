@@ -17,7 +17,7 @@ describe('generator-alfresco-common:alfresco-module-registry', function () {
       var repo = require('../index').alfresco_module_registry(yomock);
       var modules = repo.getModules();
       assert.ok(modules);
-      assert.deepEqual(modules, []);
+      assert.deepStrictEqual(modules, []);
     });
 
     it('handles a module provided via long argument list', function () {
@@ -25,7 +25,7 @@ describe('generator-alfresco-common:alfresco-module-registry', function () {
       repo.addModule('groupId', 'artifactId', 'version', 'packaging', 'war', 'location', 'path');
       var modules = repo.getModules();
       assert.ok(modules);
-      assert.deepEqual(modules, [{
+      assert.deepStrictEqual(modules, [{
         'groupId': 'groupId',
         'artifactId': 'artifactId',
         'version': 'version',
@@ -49,7 +49,7 @@ describe('generator-alfresco-common:alfresco-module-registry', function () {
       });
       var modules = repo.getModules();
       assert.ok(modules);
-      assert.deepEqual(modules, [{
+      assert.deepStrictEqual(modules, [{
         'groupId': 'groupId',
         'artifactId': 'artifactId',
         'version': 'version',
@@ -66,7 +66,7 @@ describe('generator-alfresco-common:alfresco-module-registry', function () {
       var repo = require('../index').alfresco_module_registry(yomock);
       var modules = repo.getNamedModules();
       assert.ok(modules);
-      assert.deepEqual(modules, []);
+      assert.deepStrictEqual(modules, []);
     });
 
     it('handles a module provided via long argument list', function () {
@@ -74,7 +74,7 @@ describe('generator-alfresco-common:alfresco-module-registry', function () {
       repo.addModule('groupId', 'artifactId', 'version', 'packaging', 'war', 'location', 'path');
       var modules = repo.getNamedModules();
       assert.ok(modules);
-      assert.deepEqual(modules, [{
+      assert.deepStrictEqual(modules, [{
         'name': 'groupId:artifactId:version:packaging:war:location',
         'module': {
           'groupId': 'groupId',
@@ -101,7 +101,7 @@ describe('generator-alfresco-common:alfresco-module-registry', function () {
       });
       var modules = repo.getNamedModules();
       assert.ok(modules);
-      assert.deepEqual(modules, [{
+      assert.deepStrictEqual(modules, [{
         'name': 'groupId:artifactId:version:packaging:war:location',
         'module': {
           'groupId': 'groupId',
@@ -120,7 +120,7 @@ describe('generator-alfresco-common:alfresco-module-registry', function () {
       repo.addModule('${project.groupId}', 'artifactId', '${project.version}', 'packaging', 'war', 'location', 'path');
       var modules = repo.getNamedModules();
       assert.ok(modules);
-      assert.deepEqual(modules, [{
+      assert.deepStrictEqual(modules, [{
         'name': 'org.alfresco:artifactId:1.0.0-SNAPSHOT:packaging:war:location',
         'module': {
           'groupId': '${project.groupId}',
@@ -140,7 +140,7 @@ describe('generator-alfresco-common:alfresco-module-registry', function () {
       var repo = require('../index').alfresco_module_registry(yomock);
       var module = repo.normalizeModule('groupId', 'artifactId', 'version', 'packaging', 'war', 'location', 'path');
       assert.ok(module);
-      assert.deepEqual(module, {
+      assert.deepStrictEqual(module, {
         'groupId': 'groupId',
         'artifactId': 'artifactId',
         'version': 'version',
@@ -163,7 +163,7 @@ describe('generator-alfresco-common:alfresco-module-registry', function () {
         'path': 'path',
       });
       assert.ok(module);
-      assert.deepEqual(module, {
+      assert.deepStrictEqual(module, {
         'groupId': 'groupId',
         'artifactId': 'artifactId',
         'version': 'version',
@@ -176,17 +176,17 @@ describe('generator-alfresco-common:alfresco-module-registry', function () {
 
     it('returns undefined if no arguments', function () {
       var repo = require('../index').alfresco_module_registry(yomock);
-      assert.equal(repo.normalizeModule(), undefined);
+      assert.strictEqual(repo.normalizeModule(), undefined);
     });
 
     it('returns undefined if we are missing an argument', function () {
       var repo = require('../index').alfresco_module_registry(yomock);
-      assert.equal(repo.normalizeModule('groupId', 'artifactId', 'version', 'packaging', 'war', 'location'), undefined);
+      assert.strictEqual(repo.normalizeModule('groupId', 'artifactId', 'version', 'packaging', 'war', 'location'), undefined);
     });
 
     it('returns undefined if inner arguments are undefined', function () {
       var repo = require('../index').alfresco_module_registry(yomock);
-      assert.equal(
+      assert.strictEqual(
         repo.normalizeModule('groupId', 'artifactId', undefined, 'packaging', 'war', undefined, 'path'),
         undefined);
     });
@@ -194,7 +194,7 @@ describe('generator-alfresco-common:alfresco-module-registry', function () {
     it('returns undefined for an empty module provided via object form', function () {
       var repo = require('../index').alfresco_module_registry(yomock);
       var module = repo.normalizeModule({});
-      assert.equal(module, undefined);
+      assert.strictEqual(module, undefined);
     });
 
     it('returns undefined for an incomplete module provided via object form', function () {
@@ -207,7 +207,7 @@ describe('generator-alfresco-common:alfresco-module-registry', function () {
         'war': 'war',
         'location': 'location',
       });
-      assert.equal(module, undefined);
+      assert.strictEqual(module, undefined);
     });
   });
 
@@ -215,7 +215,7 @@ describe('generator-alfresco-common:alfresco-module-registry', function () {
     it('does not find a non-existent module', function () {
       var repo = require('../index').alfresco_module_registry(yomock);
       var module = repo.findModule('groupId', 'artifactId', 'version', 'packaging', 'war', 'location', 'path');
-      assert.equal(module, undefined);
+      assert.strictEqual(module, undefined);
     });
 
     it('finds module even when no path is provided', function () {
@@ -223,7 +223,7 @@ describe('generator-alfresco-common:alfresco-module-registry', function () {
       repo.addModule('groupId', 'artifactId', 'version', 'packaging', 'war', 'location', 'path');
       var module = repo.findModule('groupId', 'artifactId', 'version', 'packaging', 'war', 'location', undefined);
       assert.ok(module);
-      assert.deepEqual(module, {
+      assert.deepStrictEqual(module, {
         'groupId': 'groupId',
         'artifactId': 'artifactId',
         'version': 'version',
@@ -239,7 +239,7 @@ describe('generator-alfresco-common:alfresco-module-registry', function () {
       repo.addModule('groupId', 'artifactId', 'version', 'packaging', 'war', 'location', 'path');
       var module = repo.findModule('groupId', 'artifactId', 'version', 'packaging', 'war', 'location', 'path');
       assert.ok(module);
-      assert.deepEqual(module, {
+      assert.deepStrictEqual(module, {
         'groupId': 'groupId',
         'artifactId': 'artifactId',
         'version': 'version',
@@ -256,7 +256,7 @@ describe('generator-alfresco-common:alfresco-module-registry', function () {
       repo.addModule('groupId2', 'artifactId2', 'version2', 'packaging2', 'war2', 'location2', 'path2');
       var module = repo.findModule('groupId', 'artifactId', 'version', 'packaging', 'war', 'location', 'path');
       assert.ok(module);
-      assert.deepEqual(module, {
+      assert.deepStrictEqual(module, {
         'groupId': 'groupId',
         'artifactId': 'artifactId',
         'version': 'version',
@@ -274,7 +274,7 @@ describe('generator-alfresco-common:alfresco-module-registry', function () {
       repo.addModule('groupId3', 'artifactId3', 'version3', 'packaging3', 'war3', 'location3', 'path3');
       var module = repo.findModule('groupId', 'artifactId', 'version', 'packaging', 'war', 'location', 'path');
       assert.ok(module);
-      assert.deepEqual(module, {
+      assert.deepStrictEqual(module, {
         'groupId': 'groupId',
         'artifactId': 'artifactId',
         'version': 'version',
@@ -292,7 +292,7 @@ describe('generator-alfresco-common:alfresco-module-registry', function () {
       repo.addModule('groupId', 'artifactId', 'version', 'packaging', 'war', 'location', 'path');
       var module = repo.findModule('groupId', 'artifactId', 'version', 'packaging', 'war', 'location', 'path');
       assert.ok(module);
-      assert.deepEqual(module, {
+      assert.deepStrictEqual(module, {
         'groupId': 'groupId',
         'artifactId': 'artifactId',
         'version': 'version',
@@ -311,7 +311,7 @@ describe('generator-alfresco-common:alfresco-module-registry', function () {
       repo.addModule('groupId', 'artifactId', 'version', 'packaging', 'war', 'location', 'path');
       var modules = repo.getModules();
       assert.ok(modules);
-      assert.deepEqual(modules, [{
+      assert.deepStrictEqual(modules, [{
         'groupId': 'groupId',
         'artifactId': 'artifactId',
         'version': 'version',
@@ -351,7 +351,7 @@ describe('generator-alfresco-common:alfresco-module-registry', function () {
       repo.removeModule('groupId', 'artifactId', 'version', 'packaging', 'war', 'location', 'path');
       var modules = repo.getModules();
       assert.ok(modules);
-      assert.deepEqual(modules, []);
+      assert.deepStrictEqual(modules, []);
     });
 
     it('removes first module', function () {
@@ -362,7 +362,7 @@ describe('generator-alfresco-common:alfresco-module-registry', function () {
       repo.removeModule('groupId', 'artifactId1', 'version', 'packaging', 'war', 'location', 'path');
       var modules = repo.getModules();
       assert.ok(modules);
-      assert.deepEqual(modules, [
+      assert.deepStrictEqual(modules, [
         {
           'groupId': 'groupId',
           'artifactId': 'artifactId2',
@@ -392,7 +392,7 @@ describe('generator-alfresco-common:alfresco-module-registry', function () {
       repo.removeModule('groupId', 'artifactId2', 'version', 'packaging', 'war', 'location', 'path');
       var modules = repo.getModules();
       assert.ok(modules);
-      assert.deepEqual(modules, [
+      assert.deepStrictEqual(modules, [
         {
           'groupId': 'groupId',
           'artifactId': 'artifactId1',
@@ -422,7 +422,7 @@ describe('generator-alfresco-common:alfresco-module-registry', function () {
       repo.removeModule('groupId', 'artifactId3', 'version', 'packaging', 'war', 'location', 'path');
       var modules = repo.getModules();
       assert.ok(modules);
-      assert.deepEqual(modules, [
+      assert.deepStrictEqual(modules, [
         {
           'groupId': 'groupId',
           'artifactId': 'artifactId1',
@@ -479,7 +479,7 @@ describe('generator-alfresco-common:alfresco-module-registry', function () {
       repo.addModule('groupId', 'artifactId', 'version', 'packaging', 'war', 'location', 'customizations\\path');
       var modules = repo.getModules();
       assert.ok(modules);
-      assert.deepEqual(modules, [{
+      assert.deepStrictEqual(modules, [{
         'groupId': 'groupId',
         'artifactId': 'artifactId',
         'version': 'version',
@@ -507,7 +507,7 @@ describe('generator-alfresco-common:alfresco-module-registry', function () {
       repo = require('../index').alfresco_module_registry(persistentyomock);
       var modules = repo.getModules();
       assert.ok(modules);
-      assert.deepEqual(modules, [{
+      assert.deepStrictEqual(modules, [{
         'groupId': 'groupId',
         'artifactId': 'artifactId',
         'version': 'version',

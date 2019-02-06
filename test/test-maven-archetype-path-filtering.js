@@ -7,19 +7,19 @@ describe('generator-alfresco-common:maven-archetype-path-filtering', function ()
   describe('.filter()', function () {
     it('passes through normal text', function () {
       var unchanged = 'unchanged';
-      assert.equal(pathFiltering.filter(unchanged), unchanged);
+      assert.strictEqual(pathFiltering.filter(unchanged), unchanged);
     });
 
     it('handles single instance replacement', function () {
       var input = '__placeholder__';
       var output = 'value';
-      assert.equal(pathFiltering.filter(input, {placeholder: 'value'}), output);
+      assert.strictEqual(pathFiltering.filter(input, { placeholder: 'value' }), output);
     });
 
     it('handles single instance with multiple path elements', function () {
       var input = '/before/__placeholder__/after';
       var output = '/before/ministry/of/magic/after';
-      assert.equal(pathFiltering.filter(input, {placeholder: 'ministry/of/magic'}), output);
+      assert.strictEqual(pathFiltering.filter(input, { placeholder: 'ministry/of/magic' }), output);
     });
 
     it('handles multi instance replacement', function () {
@@ -29,7 +29,7 @@ describe('generator-alfresco-common:maven-archetype-path-filtering', function ()
         placeholder2: 'bar',
       };
       var output = '/foo/bar';
-      assert.equal(pathFiltering.filter(input, properties), output);
+      assert.strictEqual(pathFiltering.filter(input, properties), output);
     });
   });
 });

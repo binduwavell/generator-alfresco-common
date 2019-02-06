@@ -44,36 +44,36 @@ describe('generator-alfresco-common:prompt-validators', function () {
   var moduleRegistryWithOneModule = require('../index').alfresco_module_registry(yomockmodules);
   describe('.sequentialValidatorFactory()', function () {
     it('handles invalid input', function () {
-      assert.equal(validators.sequentialValidatorFactory([])(undefined), undefined);
-      assert.equal(validators.sequentialValidatorFactory([])(null), undefined);
+      assert.strictEqual(validators.sequentialValidatorFactory([])(undefined), undefined);
+      assert.strictEqual(validators.sequentialValidatorFactory([])(null), undefined);
     });
     it('handles single value in array', function () {
-      assert.equal(validators.sequentialValidatorFactory([validators.uniqueSourceAmpModuleValidator])(undefined, moduleRegistryWithNoModules), 'Artifact Id cannot be empty');
-      assert.equal(validators.sequentialValidatorFactory([validators.uniqueSourceAmpModuleValidator])('', moduleRegistryWithNoModules), 'Artifact Id cannot be empty');
-      assert.equal(validators.sequentialValidatorFactory([isNotEmpty])('one'), true);
+      assert.strictEqual(validators.sequentialValidatorFactory([validators.uniqueSourceAmpModuleValidator])(undefined, moduleRegistryWithNoModules), 'Artifact Id cannot be empty');
+      assert.strictEqual(validators.sequentialValidatorFactory([validators.uniqueSourceAmpModuleValidator])('', moduleRegistryWithNoModules), 'Artifact Id cannot be empty');
+      assert.strictEqual(validators.sequentialValidatorFactory([isNotEmpty])('one'), true);
     });
     it('handles multiple values in array', function () {
-      assert.equal(validators.sequentialValidatorFactory([isNotEmpty, validators.uniqueSourceAmpModuleValidator])('', moduleRegistryWithNoModules), false);
-      assert.equal(validators.sequentialValidatorFactory([validators.uniqueSourceAmpModuleValidator, isNotEmpty])('', moduleRegistryWithNoModules), 'Artifact Id cannot be empty');
+      assert.strictEqual(validators.sequentialValidatorFactory([isNotEmpty, validators.uniqueSourceAmpModuleValidator])('', moduleRegistryWithNoModules), false);
+      assert.strictEqual(validators.sequentialValidatorFactory([validators.uniqueSourceAmpModuleValidator, isNotEmpty])('', moduleRegistryWithNoModules), 'Artifact Id cannot be empty');
     });
     it('handles validators that require a this reference', function () {
       var obj = {
         name: 'fred',
       };
-      assert.equal(validators.sequentialValidatorFactory([thisNameCheck]).bind(obj)('fred'), true);
-      assert.equal(validators.sequentialValidatorFactory([thisNameCheck]).bind(obj)('george'), 'that did not work');
+      assert.strictEqual(validators.sequentialValidatorFactory([thisNameCheck]).bind(obj)('fred'), true);
+      assert.strictEqual(validators.sequentialValidatorFactory([thisNameCheck]).bind(obj)('george'), 'that did not work');
     });
   });
   describe('.uniqueSourceAmpModuleValidator()', function () {
     it('handles invalid input', function () {
-      assert.equal(validators.uniqueSourceAmpModuleValidator(undefined, moduleRegistryWithNoModules), 'Artifact Id cannot be empty');
-      assert.equal(validators.uniqueSourceAmpModuleValidator(null, moduleRegistryWithNoModules), 'Artifact Id cannot be empty');
+      assert.strictEqual(validators.uniqueSourceAmpModuleValidator(undefined, moduleRegistryWithNoModules), 'Artifact Id cannot be empty');
+      assert.strictEqual(validators.uniqueSourceAmpModuleValidator(null, moduleRegistryWithNoModules), 'Artifact Id cannot be empty');
     });
     it('handles unique artifact Id', function () {
-      assert.equal(validators.uniqueSourceAmpModuleValidator('one', moduleRegistryWithNoModules), true);
+      assert.strictEqual(validators.uniqueSourceAmpModuleValidator('one', moduleRegistryWithNoModules), true);
     });
     it('handles duplicate artifact Id', function () {
-      assert.equal(validators.uniqueSourceAmpModuleValidator('boo', moduleRegistryWithOneModule), 'Duplicate artifact Id specified');
+      assert.strictEqual(validators.uniqueSourceAmpModuleValidator('boo', moduleRegistryWithOneModule), 'Duplicate artifact Id specified');
     });
   });
 });

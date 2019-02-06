@@ -19,7 +19,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       var element = domutils.createChild(rootElement, 'ns', 'node');
       assert.ok(element);
       var docStr = domutils.prettyPrint(doc);
-      assert.equal(docStr, [
+      assert.strictEqual(docStr, [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<!-- Comment -->',
         '<root ',
@@ -45,7 +45,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       var element = domutils.createChild(rootElement, 'ns', 'node');
       assert.ok(element);
       var docStr = domutils.prettyPrint(doc);
-      assert.equal(docStr, [
+      assert.strictEqual(docStr, [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<!-- Comment -->',
         '<root ',
@@ -72,7 +72,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       var element = domutils.createChild(rootElement, 'ns', 'node', true);
       assert.ok(element);
       var docStr = domutils.prettyPrint(doc);
-      assert.equal(docStr, [
+      assert.strictEqual(docStr, [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<!-- Comment -->',
         '<root ',
@@ -116,7 +116,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       var rootElement = doc.documentElement;
       assert.ok(rootElement);
       var element = domutils.getChild(rootElement, 'ns', 'garbage');
-      assert.equal(element, undefined);
+      assert.strictEqual(element, undefined);
     });
   });
 
@@ -136,7 +136,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       assert.ok(rootElement);
       var elements = domutils.getChildren(rootElement, 'ns', 'element');
       assert.ok(elements);
-      assert.equal(elements.length, 2);
+      assert.strictEqual(elements.length, 2);
       assert.ok(elements[0].nodeType === elements[0].ELEMENT_NODE);
       assert.ok(elements[1].nodeType === elements[1].ELEMENT_NODE);
     });
@@ -154,7 +154,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       var rootElement = doc.documentElement;
       assert.ok(rootElement);
       var elements = domutils.getChildren(rootElement, 'ns', 'garbage');
-      assert.equal(elements.length, 0);
+      assert.strictEqual(elements.length, 0);
     });
   });
 
@@ -173,7 +173,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       assert.ok(rootElement);
       domutils.removeChild(rootElement, 'ns', 'element');
       var docStr = domutils.prettyPrint(doc);
-      assert.equal(docStr, [
+      assert.strictEqual(docStr, [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<!-- Comment -->',
         '<root ',
@@ -199,7 +199,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       var element = domutils.getChild(rootElement, 'ns', 'element');
       domutils.removeParentsChild(rootElement, element);
       var docStr = domutils.prettyPrint(doc);
-      assert.equal(docStr, [
+      assert.strictEqual(docStr, [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<!-- Comment -->',
         '<root ',
@@ -223,7 +223,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       var element = domutils.getChild(rootElement, 'ns', 'element');
       domutils.removeParentsChild(element, rootElement);
       var docStr = domutils.prettyPrint(doc);
-      assert.equal(docStr, [
+      assert.strictEqual(docStr, [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<!-- Comment -->',
         '<root ',
@@ -251,7 +251,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       assert.ok(element);
       assert.ok(element.nodeType === element.ELEMENT_NODE);
       var elementStr = domutils.prettyPrint(element);
-      assert.equal(elementStr, [
+      assert.strictEqual(elementStr, [
         '<element foo="bar" ',
         '  xmlns="http://www.example.com/"/>',
       ].join('\n'));
@@ -272,7 +272,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       assert.ok(element);
       assert.ok(element.nodeType === element.ELEMENT_NODE);
       var elementStr = domutils.prettyPrint(element);
-      assert.equal(elementStr, [
+      assert.strictEqual(elementStr, [
         '<element ',
         '  xmlns="http://www.example.com/"/>',
       ].join('\n'));
@@ -282,7 +282,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
   describe('.getNextElementSibling()', function () {
     it('Get undefined when no node', function () {
       var sibling = domutils.getNextElementSibling();
-      assert.equal(sibling, undefined);
+      assert.strictEqual(sibling, undefined);
     });
 
     it('Get null when no sibling', function () {
@@ -300,7 +300,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       var element = domutils.getChild(rootElement, 'ns', 'element');
       assert.ok(element);
       var sibling = domutils.getNextElementSibling(element);
-      assert.equal(sibling, null);
+      assert.strictEqual(sibling, null);
     });
 
     it('Get sibling when exists', function () {
@@ -322,7 +322,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       assert.ok(sibling1);
       assert.ok(sibling1.nodeType === sibling1.ELEMENT_NODE);
       var sibling1Str = domutils.prettyPrint(sibling1);
-      assert.equal(sibling1Str, [
+      assert.strictEqual(sibling1Str, [
         '<element2 ',
         '  xmlns="http://www.example.com/"/>',
       ].join('\n'));
@@ -330,7 +330,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       assert.ok(sibling2);
       assert.ok(sibling2.nodeType === sibling2.ELEMENT_NODE);
       var sibling2Str = domutils.prettyPrint(sibling2);
-      assert.equal(sibling2Str, [
+      assert.strictEqual(sibling2Str, [
         '<element3 ',
         '  xmlns="http://www.example.com/"/>',
       ].join('\n'));
@@ -353,7 +353,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       domutils.setOrClearChildText(rootElement, 'ns', 'element', 'it worked');
       var element = domutils.getChild(rootElement, 'ns', 'element');
       assert.ok(element);
-      assert.equal(element.textContent, 'it worked');
+      assert.strictEqual(element.textContent, 'it worked');
     });
 
     it('adds element if necessary', function () {
@@ -370,7 +370,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       domutils.setOrClearChildText(rootElement, 'ns', 'element', 'it worked');
       var element = domutils.getChild(rootElement, 'ns', 'element');
       assert.ok(element);
-      assert.equal(element.textContent, 'it worked');
+      assert.strictEqual(element.textContent, 'it worked');
     });
 
     it('removes element when text is contra indicated', function () {
@@ -387,7 +387,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       assert.ok(rootElement);
       domutils.setOrClearChildText(rootElement, 'ns', 'element', 'it is contra indicated', 'it is contra indicated');
       var element = domutils.getChild(rootElement, 'ns', 'element');
-      assert.equal(element, undefined);
+      assert.strictEqual(element, undefined);
     });
   });
 
@@ -425,7 +425,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       assert.ok(doc);
       var xp = "/pom:project/pom:profiles/pom:profile[pom:id='functional-testing']/pom:build/pom:plugins/pom:plugin[1]";
       var element = domutils.getFirstNodeMatchingXPath(xp, doc);
-      assert.equal(domutils.prettyPrint(element), [
+      assert.strictEqual(domutils.prettyPrint(element), [
         '<plugin ',
         '  xmlns="http://maven.apache.org/POM/4.0.0">you found me',
         '</plugin>',
@@ -467,7 +467,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       var element1 = domutils.getFirstNodeMatchingXPath(xp1, doc);
       var xp2 = 'pom:build/pom:plugins/pom:plugin[1]';
       var element2 = domutils.getFirstNodeMatchingXPath(xp2, element1);
-      assert.equal(domutils.prettyPrint(element2), [
+      assert.strictEqual(domutils.prettyPrint(element2), [
         '<plugin ',
         '  xmlns="http://maven.apache.org/POM/4.0.0">you found me',
         '</plugin>',
@@ -486,7 +486,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       assert.ok(doc);
       var xp = "/pom:project[pom:stuff = '${property}']/pom:stuff";
       var element = domutils.getFirstNodeMatchingXPath(xp, doc);
-      assert.equal(domutils.prettyPrint(element), [
+      assert.strictEqual(domutils.prettyPrint(element), [
         '<stuff ',
         '  xmlns="http://maven.apache.org/POM/4.0.0">${property}',
         '</stuff>',
@@ -499,7 +499,7 @@ describe('generator-alfresco-common:xml-dom-utils', function () {
       assert.ok(doc);
       var xp = '/pom:project/pom:stuff';
       var element = domutils.getFirstNodeMatchingXPath(xp, doc);
-      assert.equal(element, undefined);
+      assert.strictEqual(element, undefined);
     });
   });
 });
