@@ -4,20 +4,16 @@ dist: trusty
 sudo: false
 
 node_js:
+  - "10"
   - "8"
   - "7"
   - "6"
-  - "5"
-  - "4"
 
 install:
-#  - if [[ "${TRAVIS_NODE_VERSION}" == '8' ]]; then npm cache verify; fi
   - npm install
-#  - npm install || export FAILURE=$?
-#  - if [[ "${FAILURE}" ]]; then cat /home/travis/.npm/_logs/*-debug.log; exit $FAILURE; fi
 
 script:
-  - if [[ "${TRAVIS_NODE_VERSION}" == '8' ]]; then npm run codecov; else npm run test; fi
+  - if [[ "${TRAVIS_NODE_VERSION}" == '10' ]]; then npm run codecov; else npm run test; fi
 
 notifications:
   webhooks:
