@@ -74,6 +74,6 @@
     "test:watch": "mocha --reporter spec --watch test",
     "test:watchone": "mocha --reporter spec --watch",
     "cover": "nyc mocha test",
-    "codecov": "nyc _mocha test && nyc report --report=lcov && codecov && rm -rf coverage && rm -rf .nyc_output"
+    "codecov": "nyc _mocha test && nyc report --reporter=lcov --report-dir=.nyc_output && codecov && rm -rf .nyc_output"
   }
 }
