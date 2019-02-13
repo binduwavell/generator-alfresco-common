@@ -88,8 +88,8 @@ If you find a bug or something is confusing, you can review [existing](https://g
 
 Apache 2.0
 
-[travis-image]: https://img.shields.io/travis/binduwavell/generator-alfresco-common/master.svg
-[travis-url]: https://travis-ci.org/binduwavell/generator-alfresco-common
+[travis-image]: https://img.shields.io/travis/com/binduwavell/generator-alfresco-common/master.svg
+[travis-url]: https://travis-ci.com/binduwavell/generator-alfresco-common
 [codecov-image]: https://codecov.io/github/binduwavell/generator-alfresco-common/coverage.svg?branch=master
 [codecov-url]: https://codecov.io/github/binduwavell/generator-alfresco-common?branch=master
 [coveralls-image]: https://coveralls.io/repos/binduwavell/generator-alfresco-common/badge.svg?branch=master&service=github
