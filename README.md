@@ -1,6 +1,6 @@
 # generator-alfresco-common
 
-[![Build Status][travis-image]][travis-url] [![Coverage Status][codecov-image]][codecov-url] [![Dependency Status][bithound-dep-image]][bithound-dep-url] [![Dev Dependency Status][bithound-dev-image]][bithound-dev-url] [![Join the Chat][gitter-image]][gitter-url]
+[![Build Status][travis-image]][travis-url] [![Coverage Status][codecov-image]][codecov-url] [![Join the Chat][gitter-image]][gitter-url]
 
 ## Getting Started
 
@@ -90,10 +90,6 @@ Apache 2.0
 
 [travis-image]: https://img.shields.io/travis/binduwavell/generator-alfresco-common/master.svg
 [travis-url]: https://travis-ci.org/binduwavell/generator-alfresco-common
-[bithound-dep-image]: https://www.bithound.io/github/binduwavell/generator-alfresco-common/badges/dependencies.svg
-[bithound-dep-url]: https://www.bithound.io/github/binduwavell/generator-alfresco-common/master/dependencies/npm
-[bithound-dev-image]: https://www.bithound.io/github/binduwavell/generator-alfresco-common/badges/devDependencies.svg
-[bithound-dev-url]: https://www.bithound.io/github/binduwavell/generator-alfresco-common/master/dependencies/npm
 [codecov-image]: https://codecov.io/github/binduwavell/generator-alfresco-common/coverage.svg?branch=master
 [codecov-url]: https://codecov.io/github/binduwavell/generator-alfresco-common?branch=master
 [coveralls-image]: https://coveralls.io/repos/binduwavell/generator-alfresco-common/badge.svg?branch=master&service=github
