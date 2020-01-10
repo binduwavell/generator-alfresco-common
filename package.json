@@ -60,7 +60,7 @@
     "npm-check-updates": "2.15.0",
     "nyc": "^13.1.0",
     "yeoman-assert": "3.1.1",
-    "yeoman-test": "1.9.1"
+    "yeoman-test": "2.1.0"
   },
   "config": {},
   "scripts": {
