@@ -41,7 +41,7 @@
     "wrap-ansi": "4.0.0",
     "xmldom": "0.1.27",
     "xpath": "0.0.27",
-    "yeoman-generator": "3.2.0"
+    "yeoman-generator": "5.2.0"
   },
   "devDependencies": {
     "codecov": "3.1.0",
